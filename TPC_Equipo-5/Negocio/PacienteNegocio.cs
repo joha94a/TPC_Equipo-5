@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("SELECT P.Id, P.DNI, P.Nombre, P.Apellido, P.Fecha_Nacimiento, P.Genero, P.Direccion, P.Telefono, P.Mail, P.Observaciones FROM Pacientes P;");
+                accesoDatos.setearConsulta("SELECT P.Id, P.DNI, P.Nombre, P.Apellido, P.Fecha_Nacimiento, P.Genero, P.Direccion, P.Telefono, P.Mail, P.Observaciones FROM Paciente P;");
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -28,7 +28,7 @@ namespace Negocio
                     aux.Nombre = (string)accesoDatos.Lector["Nombre"];
                     aux.Apellido = (string)accesoDatos.Lector["Apellido"];
                     aux.Fecha_Nacimiento = (DateTime)accesoDatos.Lector["Fecha_Nacimiento"];
-                    aux.Genero = (char)accesoDatos.Lector["Genero"];
+                    aux.Genero = (string)accesoDatos.Lector["Genero"];
                     if (!(accesoDatos.Lector["Direccion"] is DBNull))
                         aux.Direccion = (string)accesoDatos.Lector["Direccion"];
                     if (!(accesoDatos.Lector["Telefono"] is DBNull))
@@ -59,8 +59,8 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("SELECT P.Id, P.DNI, P.Nombre, P.Apellido, P.Fecha_Nacimiento, P.Genero, P.Direccion, P.Telefono, P.Mail, P.Observaciones FROM Pacientes P WHERE P.DNI like '%@filtro%' OR P.Nombre like '%@filtro%' OR P.Apellido like '%@filtro%' OR P.Direccion like '%@filtro%' OR P.Mail like '%@filtro%';");
-                accesoDatos.setearParametro("@filtro", filtro);
+                accesoDatos.setearConsulta("SELECT P.Id, P.DNI, P.Nombre, P.Apellido, P.Fecha_Nacimiento, P.Genero, P.Direccion, P.Telefono, P.Mail, P.Observaciones FROM Paciente P WHERE P.DNI LIKE @filtro OR UPPER(P.Nombre) LIKE @filtro OR UPPER(P.Apellido) LIKE @filtro OR UPPER(P.Direccion) LIKE @filtro OR UPPER(P.Mail) LIKE @filtro;");
+                accesoDatos.setearParametro("@filtro", "%" + filtro.ToUpper() + "%");
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -71,7 +71,7 @@ namespace Negocio
                     aux.Nombre = (string)accesoDatos.Lector["Nombre"];
                     aux.Apellido = (string)accesoDatos.Lector["Apellido"];
                     aux.Fecha_Nacimiento = (DateTime)accesoDatos.Lector["Fecha_Nacimiento"];
-                    aux.Genero = (char)accesoDatos.Lector["Genero"];
+                    aux.Genero = (string)accesoDatos.Lector["Genero"];
                     if (!(accesoDatos.Lector["Direccion"] is DBNull))
                         aux.Direccion = (string)accesoDatos.Lector["Direccion"];
                     if (!(accesoDatos.Lector["Telefono"] is DBNull))

@@ -18,7 +18,7 @@
                     <a class="nav-link text-white" href="#"><i class="bi bi-prescription2 mx-1" style="font-size: 1.5rem"></i>Medicos</a>
                 </li>
                 <li class="nav-item me-3 me-lg-2">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-person-fill mx-1" style="font-size: 1.5rem"></i>Pacientes </a>
+                    <a class="nav-link text-white" href="Pacientes.aspx"><i class="bi bi-person-fill mx-1" style="font-size: 1.5rem"></i>Pacientes</a>
                 </li>
             </ul>
         </div> 
