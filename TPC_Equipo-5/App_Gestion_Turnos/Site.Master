@@ -9,9 +9,8 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="Content/General.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="Script/bootstrap.js"></script>
+    <link href="Content/General.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,11 +20,11 @@
            </header>
         </section>
 
-
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
     </form>
+    <script src="Script/bootstrap.js"></script>
 </body>
 </html>

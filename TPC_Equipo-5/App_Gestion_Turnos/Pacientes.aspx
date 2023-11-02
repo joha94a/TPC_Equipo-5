@@ -14,8 +14,8 @@
     <div>
         <asp:Button ID="btnAgregarPaciente" runat="server" Text="Agregar" />
     </div>
-    <div>
-        <table class="table table-hover">
+    <div style="width:100%;display:flex; text-align:center;justify-content:center">
+        <table class="table table-hover table-bordered" style="width:90%;">
             <thead>
                 <tr>
                     <th scope="col">DNI</th>

@@ -16,3 +16,29 @@ header h1{
 {
     font-size:larger;
 }
+
+.seccionInicioRecep
+{
+    padding:5%;
+}
+
+.turnosYnovedades
+{
+    display:flex;
+}
+
+.seccionTurnosRepc {
+    width: 70%;
+    height: 600px;
+    background-color: #4da1a9;
+    padding: 10px;
+}
+
+.seccionNovedadRepc 
+{
+    width: 20%;
+    height: 600px;
+    background-color: #edebdbff;
+    padding: 10px;
+    margin-left: 30px;
+}

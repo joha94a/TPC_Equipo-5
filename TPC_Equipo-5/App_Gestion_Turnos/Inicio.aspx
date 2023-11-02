@@ -21,8 +21,37 @@
                     <a class="nav-link text-white" href="Pacientes.aspx"><i class="bi bi-person-fill mx-1" style="font-size: 1.5rem"></i>Pacientes</a>
                 </li>
             </ul>
-        </div> 
+        </div>
     </nav>
 
-    <h1>Este es el inicio</h1>
+    <section class="seccionInicioRecep">
+        <h3>Turnos a reprogramar</h3>
+        <div class="turnosYnovedades">
+            <div class="seccionTurnosRepc">
+                    <table class="table table-hover table-bordered" style="width: 90%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Número</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Hora</th>
+                                <th scope="col">Médico</th>
+                                <th scope="col">Paciente</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+            </div>
+
+            <div class="seccionNovedadRepc">
+                <!--espacio para novedades para el recepcionista-->
+                
+            </div>
+        </div>
+
+    </section>
+
+
 </asp:Content>
