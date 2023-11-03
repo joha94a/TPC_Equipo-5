@@ -4,17 +4,17 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h2>Pacientes</h2>
+        <h3 class="tituloPagina">Pacientes</h3>
     </div>
-    <div>
-        <asp:Label ID="lblFiltro" runat="server" Text="Filtro:"></asp:Label>
+    <div class="seccionFiltros">
+        <asp:Label ID="lblFiltro" runat="server" Text="Buscar paciente:"></asp:Label>
         <asp:TextBox ID="txtFiltro" runat="server"></asp:TextBox>
         <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click"/>
     </div>
-    <div>
-        <asp:Button ID="btnAgregarPaciente" runat="server" Text="Agregar" />
+    <div class="seccionAgregar">
+        <asp:Button ID="btnAgregarPaciente" runat="server" Text="Dar de alta paciente" />
     </div>
-    <div style="width:100%;display:flex; text-align:center;justify-content:center">
+    <div class="seccionTabla">
         <table class="table table-hover table-bordered" style="width:90%;">
             <thead>
                 <tr>
@@ -48,7 +48,7 @@
                                 <asp:Button ID="btnModificar" runat="server" Text="Modificar" CommandName="Modificar" CommandArgument='<%# Eval("ID") %>' />
                             </td>
                             <td>
-                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("ID") %>' />
+                                <asp:Button ID="btnEliminar" runat="server" Text="Dar baja" CommandName="Eliminar" CommandArgument='<%# Eval("ID") %>' />
                             </td>
                         </tr>
                     </ItemTemplate>
