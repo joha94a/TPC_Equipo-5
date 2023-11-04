@@ -8,11 +8,68 @@ CREATE TABLE Paciente (
 	ID INT IDENTITY(1,1),
 	DNI INT UNIQUE NOT NULL,
 	Nombre VARCHAR(100) NOT NULL,
-	Apellido VARCHAR(100) NOT NULL,
+	Apellido VARCHAR(100) NOT NULL,	
 	Fecha_Nacimiento DATE NOT NULL,
 	Genero CHAR NOT NULL,
 	Direccion VARCHAR(500),
 	Telefono VARCHAR(20),
 	Mail VARCHAR(250) NOT NULL,
-	Observaciones VARCHAR(MAX)
+	Observaciones VARCHAR(MAX),
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Especialidad (
+	ID INT IDENTITY(1,1),
+	Codigo VARCHAR(100) NOT NULL,
+	Descripcion VARCHAR(100),
+    PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE Horario (
+	ID INT IDENTITY(1,1),
+	EspecialidadID INT NOT NULL,
+	Hora_Inicio DATETIME NOT NULL,
+	Hora_Fin DATETIME NOT NULL,
+);
+
+
+CREATE TABLE Medico (
+	ID INT IDENTITY(1,1),
+	Nombre VARCHAR(100) NOT NULL,
+	Apellido VARCHAR(100) NOT NULL,
+	Telefono VARCHAR(100) NOT NULL,
+	Mail VARCHAR(100) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE PerfilAcceso (
+	ID INT IDENTITY(1,1),
+	Codigo VARCHAR(10) NOT NULL,
+	Descripcion VARCHAR(100),
+	Nivel_Acceso INT,
+    PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE Turno (
+	ID INT IDENTITY(1,1),
+	Fecha DATETIME NOT NULL,
+	Hora DATETIME NOT NULL,
+	MedicoID INT NOT NULL,
+	PacienteID INT NOT NULL,
+	Observaciones VARCHAR(MAX) NOT NULL,
+	Estado INT NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE Usuario (
+	ID INT IDENTITY(1,1),
+	Nombre_Usuario VARCHAR(50) NOT NULL,
+	Contrasena VARCHAR(50) NOT NULL,
+	PerfilAccesoID INT NOT NULL,
+	MedicoID INT NOT NULL,
+    PRIMARY KEY (ID)
 );

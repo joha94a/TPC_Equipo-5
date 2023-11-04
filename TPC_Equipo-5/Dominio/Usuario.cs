@@ -9,7 +9,7 @@ namespace Dominio
     public class Usuario
     {
         public string Nombre_Usuario { get; set; }
-        public string Contraseña { get; set; }
+        public string Contrasenia { get; set; }
         public PerfilAcceso PerfilAcceso { get; set; }
         public Medico Medico { get; set; }
     }
