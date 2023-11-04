@@ -109,3 +109,7 @@ header h1{
     font-weight:bold;
     padding: 5px;
 }
+
+.dropdown .dropdown-menu li {
+    background-color: #e6e6e6;
+}

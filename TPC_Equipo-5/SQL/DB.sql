@@ -28,9 +28,9 @@ CREATE TABLE Especialidad (
 
 CREATE TABLE Horario (
 	ID INT IDENTITY(1,1),
-	EspecialidadID INT NOT NULL,
-	Hora_Inicio DATETIME NOT NULL,
-	Hora_Fin DATETIME NOT NULL,
+	Dia INT NOT NULL,
+	Hora_Inicio TIME NOT NULL,
+	Hora_Fin TIME NOT NULL,
 );
 
 

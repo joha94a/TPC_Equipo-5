@@ -32,8 +32,21 @@
                     <li class="nav-item me-3 me-lg-2">
                         <a class="nav-link text-white" href="Turnos.aspx"><i class="bi bi-calendar-range mx-1" style="font-size: 1.5rem"></i>Turnos</a>
                     </li>
-                    <li class="nav-item me-3 me-lg-2">
-                        <a class="nav-link text-white" href="Medicos.aspx"><i class="bi bi-prescription2 mx-1" style="font-size: 1.5rem"></i>Medicos</a>
+                    <li class="nav-item me-3 me-lg-2 nav-link text-white" style="padding:0">
+                        <div class="dropdown">
+                          <button class="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;font-size: larger;">
+                            <i class="bi bi-prescription2 mx-1" style="font-size: 1.5rem"></i>Medicos
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                                <a class="nav-link text-black" href="Horarios.aspx">Horarios</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-black" href="Medicos.aspx">Medicos</a>
+                            </li>
+                          </ul>
+                        </div>
+                        
                     </li>
                     <li class="nav-item me-3 me-lg-2">
                         <a class="nav-link text-white" href="Pacientes.aspx"><i class="bi bi-person-fill mx-1" style="font-size: 1.5rem"></i>Pacientes</a>
@@ -49,5 +62,6 @@
         </div>
     </form>
     <script src="Script/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
