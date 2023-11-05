@@ -17,6 +17,14 @@ namespace App_Gestion_Turnos
         {
             HorarioNegocio negocio = new HorarioNegocio();
             ListaHorarios = negocio.Get();
+            grdHorarios.DataSource = ListaHorarios;
+            grdHorarios.DataBind();
+        }
+
+        protected void grdHorarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = grdHorarios.SelectedDataKey.Value.ToString();
+            Response.Redirect("HorarioView.aspx?id=" + id, false);
         }
     }
 }

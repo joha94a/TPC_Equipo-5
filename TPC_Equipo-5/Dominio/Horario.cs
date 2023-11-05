@@ -8,10 +8,24 @@ namespace Dominio
 {
     public class Horario
     {
-        public int Id;
+        public int Id { get; set; }
         public Dia Dia { get; set; }
         public TimeSpan Hora_Inicio { get; set; }
         public TimeSpan Hora_Fin { get; set; }
+        public string Hora_InicioStr 
+        {
+            get
+            {
+                return Hora_Inicio.ToString(@"hh\:mm");
+            }
+        }
+        public string Hora_FinStr
+        {
+            get
+            {
+                return Hora_Fin.ToString(@"hh\:mm");
+            }
+        }
         public string DiaStr
         {
             get

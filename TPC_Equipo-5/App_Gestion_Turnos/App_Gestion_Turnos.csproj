@@ -84,6 +84,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Horarios.aspx" />
+    <Content Include="HorarioView.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="Medicos.aspx" />
     <Content Include="Pacientes.aspx" />
@@ -113,6 +114,13 @@
     </Compile>
     <Compile Include="Horarios.aspx.designer.cs">
       <DependentUpon>Horarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HorarioView.aspx.cs">
+      <DependentUpon>HorarioView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HorarioView.aspx.designer.cs">
+      <DependentUpon>HorarioView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>

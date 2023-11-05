@@ -110,6 +110,55 @@ header h1{
     padding: 5px;
 }
 
-.dropdown .dropdown-menu li {
+.dropdown .dropdown-menu li:hover {
     background-color: #e6e6e6;
+}
+
+table tbody tr td .gridButton {
+    border: 2px solid #0d6efd;
+    background-color: transparent;
+    color: #0d6efd;
+    width: fit-content;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.masterMenu {
+    margin: 27px 0 0 72px;
+}
+
+.table_container {
+    margin: 36px 72px 0 72px;
+}
+
+.hora_selection{
+    width: fit-content;
+    margin: 16px 48px 16px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.hora_selection label{
+    margin-right:12px;
+}
+
+.dropdowns_container {
+    display: flex;
+    margin: 24px 72px;
+}
+
+.dropdowns_container .dia_selection{
+    width: 200px;
+}
+
+.btn-return {
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    font-weight: bold;
+}
+.btn-return:hover {
+    opacity: 50%;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
 }
