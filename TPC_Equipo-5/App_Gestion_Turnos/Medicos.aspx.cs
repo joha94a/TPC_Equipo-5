@@ -14,14 +14,36 @@ namespace App_Gestion_Turnos
         public List<Medico> ListaMedicos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            string filtro = Request.QueryString["filtro"];
             MedicoNegocio negocio = new MedicoNegocio();
 
-            ListaMedicos = negocio.listarMedicos();
+            if (!IsPostBack && !string.IsNullOrEmpty(filtro))
+            {
+                ListaMedicos = negocio.listarMedicoFiltrado(filtro);
+                txtFiltro.Text = filtro;
+            }
+            else
+            {
+                ListaMedicos = negocio.listarMedicos();
+            }
 
             if (!IsPostBack)
             {
                 repMedicos.DataSource = ListaMedicos;
                 repMedicos.DataBind();
+            }
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text;
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                Response.Redirect("Medicos.aspx?filtro=" + filtro, false);
+            }
+            else
+            {
+                Response.Redirect("Medicos.aspx", false);
             }
         }
     }

@@ -9,7 +9,7 @@
     <div class="seccionFiltros">
         <asp:Label ID="lblFiltro" runat="server" Text="Buscar médico:"></asp:Label>
         <asp:TextBox ID="txtFiltro" runat="server"></asp:TextBox>
-
+        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click"/>
     </div>
     <div class="seccionAgregar">
         <!--seccion para boton agregar medico-->

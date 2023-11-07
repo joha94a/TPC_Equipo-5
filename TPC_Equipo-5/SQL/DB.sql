@@ -73,3 +73,9 @@ CREATE TABLE Usuario (
 	MedicoID INT NOT NULL,
     PRIMARY KEY (ID)
 );
+
+create table Medico_Especialidad(
+	ID INT IDENTITY(1,1) not null,
+	IDEspecialidad int not null foreign key references Especialidad(ID),
+	IDMedico int not null foreign key references Medico(ID)
+)
