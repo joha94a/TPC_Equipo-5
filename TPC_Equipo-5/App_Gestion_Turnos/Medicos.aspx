@@ -20,8 +20,6 @@
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
-                    <th scope="col">Especialidades</th>
-                    <th scope="col">Horarios</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Mail</th>
                     <th scope="col"></th>
@@ -30,15 +28,22 @@
                 </tr>
             </thead>
             <tbody>
-                <asp:Repeater ID="repPacientes" runat="server">
-                    <ItemTemplate>
-                    </ItemTemplate>
-                </asp:Repeater>
+                <asp:Repeater ID="repMedicos" runat="server">
+    <ItemTemplate>
+        <tr>
+            
+            <td><%#Eval("Nombre") %></td>
+            <td><%#Eval("Apellido") %></td>
+            <td><%#Eval("Telefono") %></td>
+            <td><%#Eval("Mail") %></td>
+        </tr>
+    </ItemTemplate>
+</asp:Repeater>
             </tbody>
         </table>
     </div>
 
-    <!--VISTA PARA LOS MEDICOS-->
+    <!--VISTA PARA LOS MEDICOS
 
     <div>
         <h3 class="tituloPagina">Mis datos</h3>
@@ -68,5 +73,5 @@
                 <asp:Button ID="btnEditarTel" runat="server" Text="Editar" />
             </div>
         </div>
-    </div>
+    </div>-->
 </asp:Content>

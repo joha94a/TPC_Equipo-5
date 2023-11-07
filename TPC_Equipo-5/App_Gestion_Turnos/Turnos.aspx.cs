@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +11,18 @@ namespace App_Gestion_Turnos
 {
     public partial class Turnos : System.Web.UI.Page
     {
+        public List<Turno> ListaTurnos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            TurnoNegocio negocio = new TurnoNegocio();
+
+            //ListaTurnos = negocio.listarTurnos();
+         
+            if (!IsPostBack)
+            {
+                repTurnos.DataSource = ListaTurnos;
+                repTurnos.DataBind();
+            }
 
         }
     }
