@@ -13,11 +13,41 @@ namespace Negocio
         {
             List<Especialidad> especialidades = new List<Especialidad>();
             AccesoDatos accesoDatos = new AccesoDatos();
-
             try
             {
                 accesoDatos.setearConsulta(@"SELECT ID, Codigo, Descripcion FROM Especialidad");
 
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Especialidad obj = new Especialidad();
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.Codigo = (string)accesoDatos.Lector["Codigo"];
+                    obj.Descripcion = (string)accesoDatos.Lector["Descripcion"];
+                    especialidades.Add(obj);
+                }
+                return especialidades;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+        public List<Especialidad> Get(string cod, string desc)
+        {
+            List<Especialidad> especialidades = new List<Especialidad>();
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT ID, Codigo, Descripcion FROM Especialidad 
+                                            WHERE Codigo LIKE '%' + @cod + '%' AND Descripcion LIKE '%'+ @desc +'%'");
+                accesoDatos.setearParametro("@cod", cod);
+                accesoDatos.setearParametro("@desc", desc);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())

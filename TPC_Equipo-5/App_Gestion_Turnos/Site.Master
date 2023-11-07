@@ -15,7 +15,7 @@
 <body>
     <form id="form1" runat="server">
         <section>
-            <header>
+            <header style="max-height: 56px;">
                 <h1>Gestión de turnos</h1>
             </header>
         </section>
@@ -42,10 +42,10 @@
                                 <a class="nav-link text-black" href="Horarios.aspx">Horarios</a>
                             </li>
                             <li>
-                                <a class="nav-link text-black" href="Medicos.aspx">Medicos</a>
+                                <a class="nav-link text-black" href="Especialidades.aspx">Especialidades</a>
                             </li>
                             <li>
-                                <a class="nav-link text-black" href="Especialidades.aspx">Especialidades</a>
+                                <a class="nav-link text-black" href="Medicos.aspx">Medicos</a>
                             </li>
                           </ul>
                         </div>

@@ -13,9 +13,9 @@ namespace App_Gestion_Turnos
     {
         public List<Especialidad> ListaEspecialidad { get; set; }
 
+        EspecialidadNegocio negocio = new EspecialidadNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
-            EspecialidadNegocio negocio = new EspecialidadNegocio();
             ListaEspecialidad = negocio.Get();
             grdEspecialidades.DataSource = ListaEspecialidad;
             grdEspecialidades.DataBind();
@@ -24,6 +24,14 @@ namespace App_Gestion_Turnos
         {
             var id = grdEspecialidades.SelectedDataKey.Value.ToString();
             Response.Redirect("EspecialidadView.aspx?id=" + id, false);
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string codigo = txtCodigo.Value;
+            string descripcion = txtDescripcion.Value;
+            grdEspecialidades.DataSource = negocio.Get(codigo, descripcion);
+            grdEspecialidades.DataBind(); 
         }
     }
 }
