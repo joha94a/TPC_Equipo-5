@@ -124,7 +124,7 @@ table tbody tr td .gridButton {
 }
 
 .masterMenu {
-    margin: 27px 0 0 72px;
+    margin: 48px 0 0 72px;
 }
 
 .table_container {
@@ -161,4 +161,17 @@ table tbody tr td .gridButton {
     opacity: 50%;
     border: 2px solid #0d6efd;
     color: #0d6efd;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+    width: fit-content;
+    margin: 4px 72px;
+}
+
+.form_container .row{
+    margin: 12px 0;
 }

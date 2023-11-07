@@ -11,33 +11,6 @@
         <a class="btn btn-primary" href="HorarioView.aspx">Nuevo</a>
     </div>
     <div class="table_container">
-        <%--<table class="table">
-          <thead>
-            <tr>
-                <th scope="col">D&iacutea</th>
-                <th scope="col">Desde</th>
-                <th scope="col">Hasta</th>
-                <th></th>
-                <th></th>
-            </tr>
-          </thead>
-          <tbody>
-                <%
-                    foreach (var item in ListaHorarios)
-                    {
-                %>
-            <tr>
-                <td><%:item.DiaStr %></td>
-                <td><%:item.Hora_Inicio %></td>
-                <td><%:item.Hora_Fin %></td>
-                <td><asp:Button ID="btnHorarioVer" runat="server" Text="VER" OnClick="btnHorarioVer_Click" class="btn btn-primary gridButton"/></td>
-                <td><asp:Button ID="btnHorarioDelete" runat="server" Text="ELIMINAR" OnClick="btnHorarioDelete_Click" class="btn btn-danger gridButton"/></td>
-            </tr>
-                <%
-                    }
-                %>
-          </tbody>
-        </table>--%>
         <asp:GridView runat="server" ID="grdHorarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdHorarios_SelectedIndexChanged" DataKeyNames="Id">
             <Columns>
                 <asp:BoundField HeaderText="Día" DataField="Dia"/>

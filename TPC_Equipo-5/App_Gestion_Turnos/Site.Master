@@ -44,6 +44,9 @@
                             <li>
                                 <a class="nav-link text-black" href="Medicos.aspx">Medicos</a>
                             </li>
+                            <li>
+                                <a class="nav-link text-black" href="Especialidades.aspx">Especialidades</a>
+                            </li>
                           </ul>
                         </div>
                         

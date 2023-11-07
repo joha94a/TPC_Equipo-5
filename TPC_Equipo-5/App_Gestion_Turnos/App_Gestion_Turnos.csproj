@@ -82,6 +82,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\General.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Especialidades.aspx" />
+    <Content Include="EspecialidadView.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Horarios.aspx" />
     <Content Include="HorarioView.aspx" />
@@ -104,6 +106,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Especialidades.aspx.cs">
+      <DependentUpon>Especialidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Especialidades.aspx.designer.cs">
+      <DependentUpon>Especialidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EspecialidadView.aspx.cs">
+      <DependentUpon>EspecialidadView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EspecialidadView.aspx.designer.cs">
+      <DependentUpon>EspecialidadView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
