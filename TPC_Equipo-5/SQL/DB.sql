@@ -47,11 +47,15 @@ CREATE TABLE Medico (
 CREATE TABLE PerfilAcceso (
 	ID INT IDENTITY(1,1),
 	Codigo VARCHAR(10) NOT NULL,
-	Descripcion VARCHAR(100),
-	Nivel_Acceso INT,
+	Descripcion VARCHAR(100) NOT NULL,
+	Nivel_Acceso INT NOT NULL,
     PRIMARY KEY (ID)
 );
 
+INSERT INTO PerfilAcceso VALUES
+('MED', 'Medico', 1 ),
+('REC', 'Recepcionista',  2 ),
+('ADM', 'Administrador', 3 )
 
 CREATE TABLE Turno (
 	ID INT IDENTITY(1,1),
@@ -75,7 +79,7 @@ CREATE TABLE Usuario (
 );
 
 create table Medico_Especialidad(
-	ID INT IDENTITY(1,1) not null,
+	ID INT IDENTITY(1,1) primary key not null,
 	IDEspecialidad int not null foreign key references Especialidad(ID),
 	IDMedico int not null foreign key references Medico(ID)
 )
