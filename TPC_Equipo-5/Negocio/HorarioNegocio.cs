@@ -115,5 +115,40 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+
+        public List<Horario> Get(Dia? dia, TimeSpan? desde, TimeSpan? hasta)
+        {
+            List<Horario> horarios = new List<Horario>();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearProcedimiento(@"HorariosGet");
+                accesoDatos.setearParametro("@desde", desde);
+                accesoDatos.setearParametro("@hasta", hasta);
+                accesoDatos.setearParametro("@dia", dia);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Horario obj = new Horario();
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.Hora_Inicio = (TimeSpan)accesoDatos.Lector["Hora_Inicio"];
+                    obj.Hora_Fin = (TimeSpan)accesoDatos.Lector["Hora_Fin"];
+                    obj.Dia = (Dia)accesoDatos.Lector["Dia"];
+                    horarios.Add(obj);
+                }
+                return horarios;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }
