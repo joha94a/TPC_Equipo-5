@@ -52,15 +52,27 @@ namespace Negocio
             }
         }
 
-        public List<Paciente> listarPacientesFiltrado(string filtro)
+        public List<Paciente> listarPacientesFiltrado(string dni, string nombre, string apellido, DateTime? fechaNacimientoDesde, DateTime? fechaNacimientoHasta)
         {
             List<Paciente> pacientes = new List<Paciente>();
             AccesoDatos accesoDatos = new AccesoDatos();
 
             try
             {
-                accesoDatos.setearConsulta("SELECT P.Id, P.DNI, P.Nombre, P.Apellido, P.Fecha_Nacimiento, P.Genero, P.Direccion, P.Telefono, P.Mail, P.Observaciones FROM Paciente P WHERE P.DNI LIKE @filtro OR UPPER(P.Nombre) LIKE @filtro OR UPPER(P.Apellido) LIKE @filtro OR UPPER(P.Direccion) LIKE @filtro OR UPPER(P.Mail) LIKE @filtro;");
-                accesoDatos.setearParametro("@filtro", "%" + filtro.ToUpper() + "%");
+                //accesoDatos.setearConsulta(@"SELECT Id, DNI, Nombre, Apellido, Fecha_Nacimiento, Genero, Direccion, Telefono, Mail, Observaciones 
+                //                            FROM Paciente 
+                //                            WHERE 
+                //                                (@dni = '' OR DNI LIKE '%' + @dni + '%')
+                //                            AND (@nombre = '' OR Nombre LIKE '%' + @nombre + '%')
+                //                            AND (@apellido = '' OR Apellido LIKE '%' + @apellido + '%')
+                //                            AND (@fechaDesde IS NULL OR Fecha_Nacimiento >= @fechaDesde) 
+                //                            AND (@fechaHasta IS NULL OR Fecha_Nacimiento <= @fechaHasta)");
+                accesoDatos.setearProcedimiento("PacientesGet");
+                accesoDatos.setearParametro("@dni", dni);
+                accesoDatos.setearParametro("@nombre", nombre);
+                accesoDatos.setearParametro("@apellido", apellido);
+                accesoDatos.setearParametro("@fechaDesde", fechaNacimientoDesde);
+                accesoDatos.setearParametro("@fechaHasta", fechaNacimientoHasta);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())

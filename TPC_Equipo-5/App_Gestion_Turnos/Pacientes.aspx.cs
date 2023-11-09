@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -19,45 +20,28 @@ namespace App_Gestion_Turnos
             ListaPacientes = negocio.listarPacientes();
             grdPacientes.DataSource = ListaPacientes;
             grdPacientes.DataBind();
-
-            /*
-            string filtro = Request.QueryString["filtro"];
-
-            if (!IsPostBack && !string.IsNullOrEmpty(filtro))
-            {
-                ListaPacientes = negocio.listarPacientesFiltrado(filtro);
-                txtFiltro.Text = filtro;
-            }
-            else
-            {
-                ListaPacientes = negocio.listarPacientes();
-            }
-
-            if (!IsPostBack)
-            {
-                repPacientes.DataSource = ListaPacientes;
-                repPacientes.DataBind();
-            }
-            */
-        }
-
-        protected void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            string filtro = txtFiltro.Text;
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                Response.Redirect("Pacientes.aspx?filtro=" + filtro, false);
-            }
-            else
-            {
-                Response.Redirect("Pacientes.aspx", false);
-            }
         }
 
         protected void grdPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             var id = grdPacientes.SelectedDataKey.Value.ToString();
             Response.Redirect("PacienteView.aspx?id=" + id, false);
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string dni = txtDNI.Value;
+            string nombre = txtNombre.Value;
+            string apellido = txtApellido.Value;
+            DateTime? fechaNacimientoDesde = null;
+            DateTime? fechaNacimientoHasta = null;
+
+            if (txtFechaNacimientoDesde.Value.Length > 0) fechaNacimientoDesde = Convert.ToDateTime(txtFechaNacimientoDesde.Value);
+            if (txtFechaNacimientoHasta.Value.Length > 0) fechaNacimientoHasta = Convert.ToDateTime(txtFechaNacimientoHasta.Value);
+
+            
+            grdPacientes.DataSource = negocio.listarPacientesFiltrado(dni, nombre, apellido, fechaNacimientoDesde, fechaNacimientoHasta);
+            grdPacientes.DataBind();
         }
     }
 }
