@@ -22,7 +22,7 @@
         <div class="row column3">
             <div class="control">
                 <label class="form-label" for="txtFechaNacimiento">Fecha de Nacimiento:</label>
-                <input type="date" class="form-control" id="txtFechaNacimiento" runat="server" style="width:200px">
+                <input type="date" class="form-control" id="txtFechaNacimiento" runat="server" style="width:200px" min="1900-01-01">
             </div>
             <div class="control">
                 <label class="form-label" for="cmbGenero">G&eacutenero:</label>

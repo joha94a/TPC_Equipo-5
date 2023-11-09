@@ -24,13 +24,17 @@ namespace App_Gestion_Turnos
                     txtDNI.Value = obj.DNI.ToString();
                     txtNombre.Value = obj.Nombre;
                     txtApellido.Value = obj.Apellido;
-                    txtFechaNacimiento.Value = obj.Fecha_NacimientoStr;
+                    txtFechaNacimiento.Value = obj.Fecha_Nacimiento.ToString("yyy-MM-dd");
                     cmbGenero.Value = obj.Genero.ToString();
                     txtDireccion.Value = obj.Direccion;
                     txtTelefono.Value = obj.Telefono;
                     txtMail.Value = obj.Mail;
                     txtObservaciones.Value = obj.Observaciones;
                 }
+            }
+            if(Request.QueryString["id"] == null && !IsPostBack)
+            {
+                txtFechaNacimiento.Value = DateTime.Today.ToString("yyy-MM-dd");
             }
         }
 
