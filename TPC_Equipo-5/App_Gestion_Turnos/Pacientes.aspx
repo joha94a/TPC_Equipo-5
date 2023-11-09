@@ -14,8 +14,8 @@
     <div class="seccionAgregar">
         <asp:Button ID="btnAgregarPaciente" runat="server" Text="Dar de alta paciente" />
     </div>
-    <div class="seccionTabla">
-        <table class="table table-hover table-bordered" style="width:90%;">
+    <div class="table_container">
+        <%--<table class="table table-hover table-bordered" style="width:90%;">
             <thead>
                 <tr>
                     <th scope="col">DNI</th>
@@ -54,6 +54,16 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </tbody>
-        </table>
+        </table>--%>
+        <asp:GridView runat="server" ID="grdPacientes" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdPacientes_SelectedIndexChanged" DataKeyNames="Id">
+            <Columns>
+                <asp:BoundField HeaderText="DNI" DataField="DNI"/>
+                <asp:BoundField HeaderText="Nombre" DataField="Nombre"/>
+                <asp:BoundField HeaderText="Apellido" DataField="Apellido"/>
+                <asp:BoundField HeaderText="Fecha Nacimiento" DataField="Fecha_NacimientoStr"/>
+                <asp:BoundField HeaderText="Mail" DataField="Mail"/>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
+            </Columns>
+        </asp:GridView>
     </div>
 </asp:Content>

@@ -12,11 +12,17 @@ namespace App_Gestion_Turnos
     public partial class Pacientes : System.Web.UI.Page
     {
         public List<Paciente> ListaPacientes { get; set; }
+        PacienteNegocio negocio = new PacienteNegocio();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            ListaPacientes = negocio.listarPacientes();
+            grdPacientes.DataSource = ListaPacientes;
+            grdPacientes.DataBind();
+
+            /*
             string filtro = Request.QueryString["filtro"];
 
-            PacienteNegocio negocio = new PacienteNegocio();
             if (!IsPostBack && !string.IsNullOrEmpty(filtro))
             {
                 ListaPacientes = negocio.listarPacientesFiltrado(filtro);
@@ -32,6 +38,7 @@ namespace App_Gestion_Turnos
                 repPacientes.DataSource = ListaPacientes;
                 repPacientes.DataBind();
             }
+            */
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -45,6 +52,12 @@ namespace App_Gestion_Turnos
             {
                 Response.Redirect("Pacientes.aspx", false);
             }
+        }
+
+        protected void grdPacientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = grdPacientes.SelectedDataKey.Value.ToString();
+            Response.Redirect("PacienteView.aspx?id=" + id, false);
         }
     }
 }

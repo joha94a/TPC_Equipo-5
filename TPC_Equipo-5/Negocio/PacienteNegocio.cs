@@ -101,21 +101,94 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("INSERT INTO Pacientes values (@DNI, @Nombre, @Apellido, @Fecha_Nacimiento, @Genero, @Direccion, @Telefono, @Mail, @Observaciones);");
+                if (paciente.Id > 0)
+                {
+                    accesoDatos.setearConsulta(@"UPDATE Paciente set 
+                                                DNI = @DNI, 
+                                                Nombre = @Nombre, 
+                                                Apellido = @Apellido, 
+                                                Fecha_Nacimiento = @Fecha_Nacimiento, 
+                                                Genero = @Genero, 
+                                                Direccion = @Direccion, 
+                                                Telefono = @Telefono, 
+                                                Mail = @Mail, 
+                                                Observaciones = @Observaciones
+                                                WHERE ID = @id");
+                    accesoDatos.setearParametro("@id", paciente.Id);
+                }
+                else
+                {
+                    accesoDatos.setearConsulta("INSERT INTO Paciente values (@DNI, @Nombre, @Apellido, @Fecha_Nacimiento, @Genero, @Direccion, @Telefono, @Mail, @Observaciones);");
+                }
                 accesoDatos.setearParametro("@DNI", paciente.DNI);
-                accesoDatos.setearParametro("@DNI", paciente.Nombre);
-                accesoDatos.setearParametro("@DNI", paciente.Apellido);
-                accesoDatos.setearParametro("@DNI", paciente.Fecha_Nacimiento);
-                accesoDatos.setearParametro("@DNI", paciente.Genero);
-                accesoDatos.setearParametro("@DNI", paciente.Direccion);
-                accesoDatos.setearParametro("@DNI", paciente.Telefono);
-                accesoDatos.setearParametro("@DNI", paciente.Mail);
-                accesoDatos.setearParametro("@DNI", paciente.Observaciones);
+                accesoDatos.setearParametro("@Nombre", paciente.Nombre);
+                accesoDatos.setearParametro("@Apellido", paciente.Apellido);
+                accesoDatos.setearParametro("@Fecha_Nacimiento", paciente.Fecha_Nacimiento);
+                accesoDatos.setearParametro("@Genero", paciente.Genero);
+                accesoDatos.setearParametro("@Direccion", paciente.Direccion);
+                accesoDatos.setearParametro("@Telefono", paciente.Telefono);
+                accesoDatos.setearParametro("@Mail", paciente.Mail);
+                accesoDatos.setearParametro("@Observaciones", paciente.Observaciones);
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                accesoDatos.setearConsulta("DELETE Paciente WHERE ID = @id");
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+
+        public Paciente Get(int id)
+        {
+            Paciente obj = new Paciente();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT ID, DNI, Nombre, Apellido, Fecha_Nacimiento, Genero, Direccion, Telefono, Mail, Observaciones FROM Paciente WHERE ID = @id");
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+                accesoDatos.Lector.Read();
+                obj.Id = (int)accesoDatos.Lector["Id"];
+                obj.DNI = (int)accesoDatos.Lector["DNI"];
+                obj.Nombre = (string)accesoDatos.Lector["Nombre"];
+                obj.Apellido = (string)accesoDatos.Lector["Apellido"];
+                obj.Fecha_Nacimiento = (DateTime)accesoDatos.Lector["Fecha_Nacimiento"];
+                obj.Genero = (string)accesoDatos.Lector["Genero"];
+                obj.Direccion = (string)accesoDatos.Lector["Direccion"];
+                obj.Telefono = (string)accesoDatos.Lector["Telefono"];
+                obj.Mail = (string)accesoDatos.Lector["Mail"];
+                obj.Observaciones = (string)accesoDatos.Lector["Observaciones"];
+
+                return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
             finally
             {

@@ -18,5 +18,12 @@ namespace Dominio
         public string Telefono { get; set; }
         public string Mail { get; set; }
         public string Observaciones { get; set; }
+        public string Fecha_NacimientoStr
+        {
+            get
+            {
+                return Fecha_Nacimiento != null ? Fecha_Nacimiento.ToString("dd/MM/yyy") : string.Empty;
+            }
+        }
     }
 }
