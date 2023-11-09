@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, Contrasena, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1;");
+                accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1;");
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -25,7 +25,6 @@ namespace Negocio
                     Usuario aux = new Usuario();
                     aux.Id = (int)accesoDatos.Lector["ID"];
                     aux.Nombre_Usuario = (string)accesoDatos.Lector["Nombre_Usuario"];
-                    aux.Contrasena = (string)accesoDatos.Lector["Contrasena"];
                     if (!(accesoDatos.Lector["PerfilAccesoID"] is DBNull))
                     {
                         aux.PerfilAcceso = perfilAccesoNegocio.obtener((int)accesoDatos.Lector["PerfilAccesoID"]);
@@ -58,8 +57,9 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("INSERT INTO Usuario VALUES (@Nombre_Usuario, @PerfilAccesoId, @MedicoId, 1);");
+                accesoDatos.setearConsulta("INSERT INTO Usuario VALUES (@Nombre_Usuario, @Contrasena, @PerfilAccesoId, @MedicoId, 1);");
                 accesoDatos.setearParametro("@Nombre_Usuario", usuario.Nombre_Usuario);
+                accesoDatos.setearParametro("@Contrasena", usuario.PerfilAcceso.Id);
                 accesoDatos.setearParametro("@PerfilAccesoId", usuario.PerfilAcceso.Id);
                 accesoDatos.setearParametro("@MedicoId", usuario.Medico.Id);
                 accesoDatos.ejecutarAccion();
@@ -117,7 +117,7 @@ namespace Negocio
             }
         }
 
-        public List<Usuario> listarFiltrado(string filtro)
+        public List<Usuario> listarFiltrado(string filtroNombre, string perfilAccesoId)
         {
             List<Usuario> usuarios = new List<Usuario>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -125,8 +125,14 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, Contrasena, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1 AND UPPER(Nombre_Usuario) LIKE @filtro;");
-                accesoDatos.setearParametro("@filtro", "%" + filtro.ToUpper() + "%");
+                string consulta = "SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1";
+                if (filtroNombre != "")
+                    consulta += " AND UPPER(Nombre_Usuario) LIKE @filtroNombre";
+                if (perfilAccesoId != "")
+                    consulta += " AND PerfilAccesoID = @perfilAccesoId";
+                accesoDatos.setearConsulta(consulta);
+                accesoDatos.setearParametro("@filtroNombre", "%" + filtroNombre.ToUpper() + "%");
+                accesoDatos.setearParametro("@perfilAccesoId", perfilAccesoId);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -134,7 +140,6 @@ namespace Negocio
                     Usuario aux = new Usuario();
                     aux.Id = (int)accesoDatos.Lector["ID"];
                     aux.Nombre_Usuario = (string)accesoDatos.Lector["Nombre_Usuario"];
-                    aux.Contrasena = (string)accesoDatos.Lector["Contrasena"];
                     if (!(accesoDatos.Lector["PerfilAccesoID"] is DBNull))
                     {
                         aux.PerfilAcceso = perfilAccesoNegocio.obtener((int)accesoDatos.Lector["PerfilAccesoID"]);
@@ -150,6 +155,46 @@ namespace Negocio
                 }
 
                 return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public Usuario obtener(int id)
+        {
+            Usuario usuario = new Usuario();
+            AccesoDatos accesoDatos = new AccesoDatos();
+            PerfilAccesoNegocio perfilAccesoNegocio = new PerfilAccesoNegocio();
+
+            try
+            {
+                accesoDatos.setearConsulta("SELECT Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE ID = @id;");
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    usuario.Id = id;
+                    usuario.Nombre_Usuario = (string)accesoDatos.Lector["Nombre_Usuario"];
+                    if (!(accesoDatos.Lector["PerfilAccesoID"] is DBNull))
+                    {
+                        usuario.PerfilAcceso = perfilAccesoNegocio.obtener((int)accesoDatos.Lector["PerfilAccesoID"]);
+                    }
+                    if (!(accesoDatos.Lector["MedicoID"] is DBNull))
+                    {
+                        // TODO: Traer Medico usando PerfilAccesoNegocio
+                        // aux.Medico = 
+                    }
+                    usuario.Activo = (bool)accesoDatos.Lector["Activo"];
+                }
+
+                return usuario;
             }
             catch (Exception ex)
             {
