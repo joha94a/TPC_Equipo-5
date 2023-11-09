@@ -59,9 +59,9 @@ namespace Negocio
             {
                 accesoDatos.setearConsulta("INSERT INTO Usuario VALUES (@Nombre_Usuario, @Contrasena, @PerfilAccesoId, @MedicoId, 1);");
                 accesoDatos.setearParametro("@Nombre_Usuario", usuario.Nombre_Usuario);
-                accesoDatos.setearParametro("@Contrasena", usuario.PerfilAcceso.Id);
+                accesoDatos.setearParametro("@Contrasena", usuario.Contrasena);
                 accesoDatos.setearParametro("@PerfilAccesoId", usuario.PerfilAcceso.Id);
-                accesoDatos.setearParametro("@MedicoId", usuario.Medico.Id);
+                accesoDatos.setearParametro("@MedicoId", usuario.Medico != null ? usuario.Medico.Id : (object)DBNull.Value);
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -79,11 +79,16 @@ namespace Negocio
             AccesoDatos accesoDatos = new AccesoDatos();
             try
             {
-                accesoDatos.setearConsulta("UPDATE Usuario SET Nombre_Usuario = @Nombre_Usuario, PerfilAccesoId = @PerfilAccesoId, MedicoId = @MedicoId WHERE ID = @Id");
+                if (usuario.Contrasena != null)
+                {
+                    accesoDatos.setearConsulta("UPDATE Usuario SET Contrasena = @Contrasena, PerfilAccesoId = @PerfilAccesoId, MedicoId = @MedicoId WHERE ID = @Id");
+                    accesoDatos.setearParametro("@Contrasena", usuario.Contrasena);
+                }
+                else
+                    accesoDatos.setearConsulta("UPDATE Usuario SET PerfilAccesoId = @PerfilAccesoId, MedicoId = @MedicoId WHERE ID = @Id");
                 accesoDatos.setearParametro("@Id", usuario.Id);
-                accesoDatos.setearParametro("@Nombre_Usuario", usuario.Nombre_Usuario);
                 accesoDatos.setearParametro("@PerfilAccesoId", usuario.PerfilAcceso.Id);
-                accesoDatos.setearParametro("@MedicoId", usuario.Medico.Id);
+                accesoDatos.setearParametro("@MedicoId", usuario.Medico != null ? usuario.Medico.Id : (object)DBNull.Value);
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)

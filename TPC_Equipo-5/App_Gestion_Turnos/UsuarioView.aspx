@@ -8,29 +8,27 @@
             <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
             <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
         </div>
+        <%if (Id > 0)
+            {
+            %>
         <div class="row">
             <label class="form-label" for="txtContrasenaActual">Contraseña actual:</label>
             <input type="text" class="form-control" id="txtContrasenaActual" runat="server">
         </div>
+        <%}
+            %>
         <div class="row">
-            <label class="form-label" for="txtNuevaContrasena">Nueva contraseña:</label>
+            <asp:Label ID="lblNuevaContrasena" CssClass="form-label" runat="server" Text="Nueva contraseña:" for="txtNuevaContrasena"></asp:Label>
             <input type="text" class="form-control" id="txtNuevaContrasena" runat="server">
         </div>
         <div class="row">
-            <label class="form-label" for="txtRepNuevaContrasena">Repita nueva contraseña:</label>
+            <asp:Label ID="lblRepNuevaContrasena" CssClass="form-label" runat="server" Text="Repita nueva contraseña:" for="txtRepNuevaContrasena"></asp:Label>
             <input type="text" class="form-control" id="txtRepNuevaContrasena" runat="server">
         </div>
         <div class="row">
             <div class="control">
                 <label class="form-label" for="cmbPerfilAcceso">Tipo:</label>
-                <select class="form-select" id="cmbPerfilAcceso" runat="server">
-                    <%--
-                    <option selected></option>
-                    <option value="1">Medico</option>
-                    <option value="2">Recepcionista</option>
-                    <option value="3">Administrador</option>
-                    --%>
-                </select>
+                <asp:DropDownList CssClass="form-select" ID="cmbPerfilAcceso" runat="server"></asp:DropDownList>
             </div>
         </div>
         <div class="row">

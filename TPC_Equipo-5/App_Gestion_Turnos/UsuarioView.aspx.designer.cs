@@ -33,6 +33,15 @@ namespace App_Gestion_Turnos
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtContrasenaActual;
 
         /// <summary>
+        /// lblNuevaContrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNuevaContrasena;
+
+        /// <summary>
         /// txtNuevaContrasena control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace App_Gestion_Turnos
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtNuevaContrasena;
+
+        /// <summary>
+        /// lblRepNuevaContrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRepNuevaContrasena;
 
         /// <summary>
         /// txtRepNuevaContrasena control.
@@ -57,7 +75,7 @@ namespace App_Gestion_Turnos
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect cmbPerfilAcceso;
+        protected global::System.Web.UI.WebControls.DropDownList cmbPerfilAcceso;
 
         /// <summary>
         /// txtMedico control.

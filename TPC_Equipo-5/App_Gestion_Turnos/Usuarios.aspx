@@ -13,14 +13,7 @@
         <div class="row">
             <div class="control">
                 <label class="form-label" for="cmbPerfilAcceso">Tipo:</label>
-                <select class="form-select" id="cmbPerfilAcceso" runat="server">
-                    <%--
-                    <option selected></option>
-                    <option value="1">Medico</option>
-                    <option value="2">Recepcionista</option>
-                    <option value="3">Administrador</option>
-                    --%>
-                </select>
+                <select class="form-select" id="cmbPerfilAcceso" runat="server"></select>
             </div>
         </div>
 
