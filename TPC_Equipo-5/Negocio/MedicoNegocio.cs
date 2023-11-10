@@ -197,5 +197,36 @@ namespace Negocio
             }
         }
 
+        public int RelacionesDeEspecialidad(int especialidadId)
+        {
+            int medicos = 0;
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta(@"select COUNT(*) medicos FROM Medico m
+                                            INNER JOIN Medico_Especialidad me ON me.IDMedico = m.Id
+                                            INNER JOIN Especialidad e ON e.Id = me.IDEspecialidad
+                                            WHERE e.Id = @especialidadId");
+                accesoDatos.setearParametro("@especialidadId", especialidadId);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    medicos = (int)accesoDatos.Lector["medicos"];
+                }
+
+                return medicos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }

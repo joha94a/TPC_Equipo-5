@@ -51,8 +51,16 @@ namespace App_Gestion_Turnos
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             EspecialidadNegocio negocio = new EspecialidadNegocio();
-            negocio.Delete(Id);
-            Response.Redirect("Especialidades.aspx", false);
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
+            if(medicoNegocio.RelacionesDeEspecialidad(Id) > 0)
+            {
+                spnMensaje.InnerText = "La especialidad no se puede eliminar porque existe al menos un médico que la posee.";
+            }
+            else
+            {
+                negocio.Delete(Id);
+                Response.Redirect("Especialidades.aspx", false);
+            }
         }
     }
 }
