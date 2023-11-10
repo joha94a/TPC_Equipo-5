@@ -36,9 +36,16 @@ namespace App_Gestion_Turnos
             obj.Codigo = codigo;
             obj.Descripcion = descripcion;
             EspecialidadNegocio negocio = new EspecialidadNegocio();
-            negocio.Save(obj);
-
-            Response.Redirect("Especialidades.aspx", false);
+            Especialidad existente = negocio.Get(codigo, Id);
+            if(existente.Id == 0)
+            {
+                negocio.Save(obj);
+                Response.Redirect("Especialidades.aspx", false);
+            }
+            else
+            {
+                spnMensaje.InnerText = "Ya existe un registro con ese código.";
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)

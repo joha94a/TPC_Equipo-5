@@ -69,6 +69,34 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+        public Especialidad Get(string cod, int id)
+        {
+            Especialidad obj = new Especialidad();
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT ID, Codigo, Descripcion FROM Especialidad WHERE Codigo = @cod AND Id != @id");
+                accesoDatos.setearParametro("@cod", cod);
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.Codigo = (string)accesoDatos.Lector["Codigo"];
+                    obj.Descripcion = (string)accesoDatos.Lector["Descripcion"];
+                }
+                return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
         public Especialidad Get(int id)
         {
             Especialidad obj = new Especialidad();

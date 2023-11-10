@@ -210,3 +210,21 @@ table tbody tr td .gridButton {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.oculto{
+    display:none;
+}
+
+
+.requerido {
+    border: 1px solid tomato;
+}
+
+.requerido_texto {
+    color: tomato;
+    font-weight: 700;
+}
+
+.message_container {
+    margin: 22px 0 0 72px;
+}
