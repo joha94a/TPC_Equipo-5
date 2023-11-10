@@ -83,3 +83,9 @@ create table Medico_Especialidad(
 	IDEspecialidad int not null foreign key references Especialidad(ID),
 	IDMedico int not null foreign key references Medico(ID)
 )
+
+create table Medico_Horario(
+	ID INT IDENTITY(1,1) not null,
+	IDHorario int not null foreign key references Horario(ID),
+	IDMedico int not null foreign key references Medico(ID)
+)

@@ -204,6 +204,10 @@ table tbody tr td .gridButton {
     width: 33%;
 }
 
+.form_container .row.column2 .control {
+    width: 50%;
+}
+
 .form_container .row.column3 {
     width: 100%;
     display: flex;

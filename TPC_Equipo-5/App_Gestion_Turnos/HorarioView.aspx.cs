@@ -42,15 +42,24 @@ namespace App_Gestion_Turnos
             TimeSpan horaInicio = new TimeSpan(horaDesde, minutosDesde, 0);
             TimeSpan horaFin = new TimeSpan(horaHasta, minutosHasta, 0);
 
-            Horario obj = new Horario();
-            obj.Id = Id;
-            obj.Dia = dia;
-            obj.Hora_Inicio = horaInicio;
-            obj.Hora_Fin = horaFin;
-            HorarioNegocio negocio = new HorarioNegocio();
-            negocio.Save(obj);
+            if(horaInicio == horaFin)
+            {
+                spnMensaje.InnerText = "El horario \"desde\" no puede ser igual al horario \"hasta\".";
+            }
+            else
+            {
 
-            Response.Redirect("Horarios.aspx", false);
+                Horario obj = new Horario();
+                obj.Id = Id;
+                obj.Dia = dia;
+                obj.Hora_Inicio = horaInicio;
+                obj.Hora_Fin = horaFin;
+
+                HorarioNegocio negocio = new HorarioNegocio();
+                negocio.Save(obj);
+
+                Response.Redirect("Horarios.aspx", false);
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
@@ -58,8 +67,17 @@ namespace App_Gestion_Turnos
             //int id = Convert.ToInt32(Request.QueryString["id"]);
 
             HorarioNegocio negocio = new HorarioNegocio();
-            negocio.Delete(Id);
-            Response.Redirect("Horarios.aspx", false);
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
+
+            if (medicoNegocio.RelacionesDeHorarios(Id) > 0)
+            {
+                spnMensaje.InnerText = "El horario no se puede eliminar porque existe al menos un médico que lo posee.";
+            }
+            else
+            {
+                negocio.Delete(Id);
+                Response.Redirect("Horarios.aspx", false);
+            }
         }
     }
 }

@@ -205,11 +205,43 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta(@"select COUNT(*) medicos FROM Medico m
+                accesoDatos.setearConsulta(@"SELECT COUNT(m.Id) medicos FROM Medico m
                                             INNER JOIN Medico_Especialidad me ON me.IDMedico = m.Id
                                             INNER JOIN Especialidad e ON e.Id = me.IDEspecialidad
                                             WHERE e.Id = @especialidadId");
                 accesoDatos.setearParametro("@especialidadId", especialidadId);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    medicos = (int)accesoDatos.Lector["medicos"];
+                }
+
+                return medicos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public int RelacionesDeHorarios(int horarioId)
+        {
+            int medicos = 0;
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT COUNT(m.Id) medicos FROM Medico m
+                                            INNER JOIN Medico_Horario mh ON mh.IDMedico = m.Id
+                                            INNER JOIN Horario h ON h.Id = mh.IDHorario
+                                            WHERE h.Id = @horarioId");
+                accesoDatos.setearParametro("@horarioId", horarioId);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
