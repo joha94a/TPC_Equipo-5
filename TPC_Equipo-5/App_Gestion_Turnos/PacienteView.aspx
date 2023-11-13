@@ -8,21 +8,25 @@
         <div class="row column3">
             <div class="control">
                 <label class="form-label" for="txtDNI">D.N.I.:</label>
-                <input type="text" class="form-control" id="txtDNI" runat="server" style="width:200px">
+                <input type="text" class="form-control" id="txtDNI" runat="server" style="width:200px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
                 <label class="form-label" for="txtNombre">Nombre:</label>
-                <input type="text" class="form-control" id="txtNombre" runat="server" style="width:300px">
+                <input type="text" class="form-control" id="txtNombre" runat="server" style="width:300px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
                 <label class="form-label" for="txtApellido">Apellido:</label>
-                <input type="text" class="form-control" id="txtApellido" runat="server" style="width:300px">
+                <input type="text" class="form-control" id="txtApellido" runat="server" style="width:300px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
         </div>
         <div class="row column3">
             <div class="control">
                 <label class="form-label" for="txtFechaNacimiento">Fecha de Nacimiento:</label>
-                <input type="date" class="form-control" id="txtFechaNacimiento" runat="server" style="width:200px" min="1900-01-01">
+                <input type="date" class="form-control" id="txtFechaNacimiento" runat="server" style="width:200px" min="1900-01-01" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
                 <label class="form-label" for="cmbGenero">G&eacutenero:</label>
@@ -34,17 +38,20 @@
             </div>
             <div class="control">
                 <label class="form-label" for="txtDireccion">Dirección:</label>
-                <input type="text" class="form-control" id="txtDireccion" runat="server" style="width:300px">
+                <input type="text" class="form-control" id="txtDireccion" runat="server" style="width:300px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
         </div>
         <div class="row column3">
             <div class="control">
                 <label class="form-label" for="txtMail">Mail:</label>
-                <input type="text" class="form-control" id="txtMail" runat="server" style="width:300px">
+                <input type="text" class="form-control" id="txtMail" runat="server" style="width:300px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
                 <label class="form-label" for="txtTelefono">Teléfono:</label>
-                <input type="text" class="form-control" id="txtTelefono" runat="server" style="width:200px">
+                <input type="text" class="form-control" id="txtTelefono" runat="server" style="width:200px" onkeyup="validacion(this.id)">
+                <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
                 <label class="form-label" for="txtObservaciones">Observaciones:</label>
@@ -54,7 +61,7 @@
     </div>
     
     <div class="masterMenu">
-        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" class="btn btn-primary"/>
+        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click"  OnClientClick="return validar()" class="btn btn-primary"/>
         <%if(Id > 0)
             {%>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button>
@@ -64,6 +71,9 @@
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal" disabled="disabled">Eliminar</button>
             <%}%>
         <a class="btn btn-return" href="Pacientes.aspx">Volver</a>
+    </div>
+    <div class="message_container">
+        <span class="requerido_texto" id="spnMensaje" runat="server"></span>
     </div>
 
     <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,5 +93,67 @@
         </div>
       </div>
     </div>
+    
+<script type="text/javascript">
+
+    function validar() {
+        let hayError = false;
+        if ($("#ContentPlaceHolder1_txtDNI").val() === "") {
+            $("#ContentPlaceHolder1_txtDNI").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtDNI").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtNombre").val() === "") {
+            $("#ContentPlaceHolder1_txtNombre").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtNombre").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtApellido").val() === "") {
+            $("#ContentPlaceHolder1_txtApellido").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtApellido").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtFechaNacimiento").val() === "") {
+            $("#ContentPlaceHolder1_txtFechaNacimiento").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtFechaNacimiento").addClass('requerido')
+            hayError = true;
+        }
+        if (new Date($("#ContentPlaceHolder1_txtFechaNacimiento").val()) > new Date()) {
+            $("#ContentPlaceHolder1_txtFechaNacimiento").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtFechaNacimiento").siblings(".requerido_texto").text("La fecha es inválida.")
+            $("#ContentPlaceHolder1_txtFechaNacimiento").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtDireccion").val() === "") {
+            $("#ContentPlaceHolder1_txtDireccion").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtDireccion").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtMail").val() === "") {
+            $("#ContentPlaceHolder1_txtMail").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtMail").addClass('requerido')
+            hayError = true;
+        }
+        if ($("#ContentPlaceHolder1_txtTelefono").val() === "") {
+            $("#ContentPlaceHolder1_txtTelefono").siblings(".requerido_texto").removeClass("oculto")
+            $("#ContentPlaceHolder1_txtTelefono").addClass('requerido')
+            hayError = true;
+        } 
+        return !hayError;
+    }
+
+    function validacion(id) {
+
+        if ($('#'+id).val() === "") {
+            $('#' + id).siblings(".requerido_texto").removeClass("oculto")
+            $('#' + id).addClass('requerido')
+        }
+        else {
+            $('#' + id).siblings(".requerido_texto").addClass("oculto")
+            $('#' + id).removeClass('requerido')
+        }
+    }
+</script>
+
 </asp:Content>
 

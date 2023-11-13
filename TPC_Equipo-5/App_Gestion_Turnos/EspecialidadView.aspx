@@ -69,7 +69,6 @@
             $(id).siblings(".requerido_texto").addClass("oculto")
             $(id).removeClass('requerido')
             $("#ContentPlaceHolder1_btnGuardar").prop('disabled', false);
-            disabled
         }
     }
 </script>

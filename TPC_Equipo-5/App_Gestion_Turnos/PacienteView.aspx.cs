@@ -50,20 +50,27 @@ namespace App_Gestion_Turnos
             string mail = txtMail.Value;
             string observaciones = txtObservaciones.Value;
 
-            Paciente obj = new Paciente();
-            obj.Id = Id;
-            obj.DNI = dni;
-            obj.Nombre = nombre;
-            obj.Apellido = apellido;
-            obj.Fecha_Nacimiento = fechaNacimiento;
-            obj.Genero = genero;
-            obj.Direccion = direccion;
-            obj.Telefono = telefono;
-            obj.Mail = mail;
-            obj.Observaciones = observaciones;
-            negocio.agregar(obj);
+            if(negocio.GetPorDNI(dni, Id).Id > 0)
+            {
+                spnMensaje.InnerText = "El D.N.I. ingresado ya existe en el sistema.";
+            }
+            else
+            {
+                Paciente obj = new Paciente();
+                obj.Id = Id;
+                obj.DNI = dni;
+                obj.Nombre = nombre;
+                obj.Apellido = apellido;
+                obj.Fecha_Nacimiento = fechaNacimiento;
+                obj.Genero = genero;
+                obj.Direccion = direccion;
+                obj.Telefono = telefono;
+                obj.Mail = mail;
+                obj.Observaciones = observaciones;
+                negocio.agregar(obj);
 
-            Response.Redirect("Pacientes.aspx", false);
+                Response.Redirect("Pacientes.aspx", false);
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)

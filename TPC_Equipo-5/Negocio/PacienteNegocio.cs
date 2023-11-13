@@ -172,7 +172,6 @@ namespace Negocio
             }
         }
 
-
         public Paciente Get(int id)
         {
             Paciente obj = new Paciente();
@@ -208,5 +207,42 @@ namespace Negocio
             }
         }
 
+        public Paciente GetPorDNI(int dni, int id)
+        {
+            Paciente obj = new Paciente();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT ID, DNI, Nombre, Apellido, Fecha_Nacimiento, Genero, Direccion, Telefono, Mail, Observaciones FROM Paciente WHERE DNI = @dni AND ID != @id");
+                accesoDatos.setearParametro("@dni", dni);
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+
+                while (accesoDatos.Lector.Read())
+                {
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.DNI = (int)accesoDatos.Lector["DNI"];
+                    obj.Nombre = (string)accesoDatos.Lector["Nombre"];
+                    obj.Apellido = (string)accesoDatos.Lector["Apellido"];
+                    obj.Fecha_Nacimiento = (DateTime)accesoDatos.Lector["Fecha_Nacimiento"];
+                    obj.Genero = (string)accesoDatos.Lector["Genero"];
+                    obj.Direccion = (string)accesoDatos.Lector["Direccion"];
+                    obj.Telefono = (string)accesoDatos.Lector["Telefono"];
+                    obj.Mail = (string)accesoDatos.Lector["Mail"];
+                    obj.Observaciones = (string)accesoDatos.Lector["Observaciones"];
+                }
+                return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }
