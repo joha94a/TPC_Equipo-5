@@ -97,6 +97,7 @@
     <Content Include="Script\bootstrap.esm.min.js" />
     <Content Include="Script\bootstrap.js" />
     <Content Include="Script\bootstrap.min.js" />
+    <Content Include="TurnoCrear.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="UsuarioView.aspx" />
@@ -176,6 +177,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TurnoCrear.aspx.cs">
+      <DependentUpon>TurnoCrear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TurnoCrear.aspx.designer.cs">
+      <DependentUpon>TurnoCrear.aspx</DependentUpon>
     </Compile>
     <Compile Include="Turnos.aspx.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
