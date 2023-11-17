@@ -170,5 +170,38 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public List<Especialidad> obtenerEspPorMedico(int idMedico) {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+            List<Especialidad> especialidades = new List<Especialidad>();
+            try
+            {
+                accesoDatos.setearConsulta("select e.ID, e.Codigo, e.Descripcion from Medico_Especialidad me inner join Especialidad e on me.IDEspecialidad = e.ID where me.IDMedico = @id");
+                accesoDatos.setearParametro("@id", idMedico);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Especialidad aux = new Especialidad();
+                    aux.Id = (int)accesoDatos.Lector["ID"];
+                    aux.Codigo = (string)accesoDatos.Lector["Codigo"];
+                    aux.Descripcion = (string)accesoDatos.Lector["Descripcion"];
+                   
+                    especialidades.Add(aux);
+                }
+
+                return especialidades;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+        }
     }
 }

@@ -6,6 +6,11 @@
     <div>
         <h3 class="tituloPagina">Gestionar médicos</h3>
     </div>
+
+    <div class="masterMenu">
+        <a class="btn btn-primary" href="MedicoView.aspx">Agregar médico</a>
+    </div>
+
     <div class="seccionFiltros">
         <asp:Label ID="lblFiltro" runat="server" Text="Buscar médico:"></asp:Label>
         <asp:TextBox ID="txtFiltro" runat="server"></asp:TextBox>
@@ -22,23 +27,31 @@
                     <th scope="col">Apellido</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Mail</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Horarios</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <asp:Repeater ID="repMedicos" runat="server">
-    <ItemTemplate>
-        <tr>
-            
-            <td><%#Eval("Nombre") %></td>
-            <td><%#Eval("Apellido") %></td>
-            <td><%#Eval("Telefono") %></td>
-            <td><%#Eval("Mail") %></td>
-        </tr>
-    </ItemTemplate>
-</asp:Repeater>
+                    <ItemTemplate>
+                        <tr>
+                            <td><%#Eval("Nombre") %></td>
+                            <td><%#Eval("Apellido") %></td>
+                            <td><%#Eval("Telefono") %></td>
+                            <td><%#Eval("Mail") %></td>
+                            <td>
+                                <asp:Repeater ID="repEspecialidades" runat="server" DataSource='<%# Eval("Especialidades") %>'>
+                                    <ItemTemplate>
+                                        <%# Eval("Descripcion") %><br />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </td>
+                            <td></td>
+                            <td><a class="btn btn-primary" href="MedicoView.aspx">Ver/Modificar</a></td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
             </tbody>
         </table>
     </div>

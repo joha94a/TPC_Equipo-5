@@ -17,17 +17,21 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("select m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m;");
+                accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m");
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
                     Medico aux = new Medico();
+                    aux.Id = (int)accesoDatos.Lector["ID"];
                     aux.Nombre = (string)accesoDatos.Lector["Nombre"];
                     aux.Apellido = (string)accesoDatos.Lector["Apellido"];
                     aux.Telefono = (string)accesoDatos.Lector["Telefono"];
                     aux.Mail = (string)accesoDatos.Lector["Mail"];
 
+                    EspecialidadNegocio espNegocio = new EspecialidadNegocio();
+                    aux.Especialidades = espNegocio.obtenerEspPorMedico(aux.Id);
+            
                     medicos.Add(aux);
                 }
 
