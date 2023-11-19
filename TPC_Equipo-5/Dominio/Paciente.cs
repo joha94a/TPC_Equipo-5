@@ -25,5 +25,16 @@ namespace Dominio
                 return Fecha_Nacimiento != null ? Fecha_Nacimiento.ToString("dd/MM/yyy") : string.Empty;
             }
         }
+        public string GeneroStr
+        {
+            get
+            {
+                string str = string.Empty;
+                if (Genero == "M") str = "Masculino";
+                else if (Genero == "F") str = "Femenino";
+                else str = "Otro";
+                return str;
+            }
+        }
     }
 }

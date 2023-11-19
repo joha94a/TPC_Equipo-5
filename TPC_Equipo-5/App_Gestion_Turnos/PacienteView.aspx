@@ -8,7 +8,7 @@
         <div class="row column3">
             <div class="control">
                 <label class="form-label" for="txtDNI">D.N.I.:</label>
-                <input type="text" class="form-control" id="txtDNI" runat="server" style="width:200px" onkeyup="validacion(this.id)">
+                <input type="number" class="form-control" id="txtDNI" runat="server" style="width:200px" onkeyup="validacion(this.id)">
                 <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
             <div class="control">
@@ -69,8 +69,15 @@
             else
             {%>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal" disabled="disabled">Eliminar</button>
-            <%}%>
+            <%}
+                if (VieneDeTurno)
+                { %>
+                <a class="btn btn-return" href="TurnoCrear.aspx">Volver</a>
+            <% }
+                else
+                { %>
         <a class="btn btn-return" href="Pacientes.aspx">Volver</a>
+        <%} %>
     </div>
     <div class="message_container">
         <span class="requerido_texto" id="spnMensaje" runat="server"></span>

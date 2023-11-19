@@ -244,5 +244,11 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public Paciente GetPorDNI(int dni)
+        {
+            return GetPorDNI(dni, 0);
+        }
+
     }
 }

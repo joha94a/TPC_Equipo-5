@@ -8,6 +8,10 @@ namespace Dominio
 {
     public class Turno
     {
+        public Turno() 
+        {
+            Observaciones = string.Empty;
+        }
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public Medico Medico { get; set; }

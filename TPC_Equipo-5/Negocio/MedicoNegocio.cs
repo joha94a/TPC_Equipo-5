@@ -264,5 +264,41 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public Medico Get(int id)
+        {
+            Medico obj = new Medico();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m WHERE m.Id = @id");
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    obj.Id = (int)accesoDatos.Lector["ID"];
+                    obj.Nombre = (string)accesoDatos.Lector["Nombre"];
+                    obj.Apellido = (string)accesoDatos.Lector["Apellido"];
+                    obj.Telefono = (string)accesoDatos.Lector["Telefono"];
+                    obj.Mail = (string)accesoDatos.Lector["Mail"];
+
+                    EspecialidadNegocio espNegocio = new EspecialidadNegocio();
+                    obj.Especialidades = espNegocio.obtenerEspPorMedico(obj.Id);
+                }
+
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
+
 }

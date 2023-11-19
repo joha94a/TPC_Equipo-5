@@ -13,6 +13,7 @@ namespace App_Gestion_Turnos
     {
         public int Id { get; set; }
         PacienteNegocio negocio = new PacienteNegocio();
+        public bool VieneDeTurno { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)
@@ -35,6 +36,12 @@ namespace App_Gestion_Turnos
             if(Request.QueryString["id"] == null && !IsPostBack)
             {
                 txtFechaNacimiento.Value = DateTime.Today.ToString("yyy-MM-dd");
+            }
+            if(Request.QueryString["doc"] != null)
+            {
+                string doc = Request.QueryString["doc"];
+                txtDNI.Value = doc;
+                VieneDeTurno = true;
             }
         }
 
@@ -69,7 +76,14 @@ namespace App_Gestion_Turnos
                 obj.Observaciones = observaciones;
                 negocio.agregar(obj);
 
-                Response.Redirect("Pacientes.aspx", false);
+                if(Request.QueryString["doc"] != null)
+                {
+                    Response.Redirect("TurnoCrear.aspx?doc=" + obj.DNI, false);
+                }
+                else
+                {
+                    Response.Redirect("Pacientes.aspx", false);
+                }
             }
         }
 
