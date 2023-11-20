@@ -60,7 +60,7 @@ namespace Negocio
             }
         }
 
-        public List<TurnoDisponibleCalendario> Get(int especialidadId)
+        public List<TurnoDisponibleCalendario> TurnoDisponibleCalendarioGet(int especialidadId)
         {
             List<TurnoDisponibleCalendario> objs = new List<TurnoDisponibleCalendario>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -93,7 +93,7 @@ namespace Negocio
             }
         }
 
-        public object ListarBuscador(DateTime? fechaDesde, DateTime? fechaHasta, int estado)
+        public List<Turno> ListarBuscador(DateTime? fechaDesde, DateTime? fechaHasta, int estado)
         {
             List<Turno> objs = new List<Turno>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -154,6 +154,37 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public Turno Get(int id)
+        {
+            Turno obj = new Turno();
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT * FROM Turno WHERE ID = @id");
+                accesoDatos.setearParametro("@id", id);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    obj.Id = Convert.ToInt32(accesoDatos.Lector["Id"]);
+                    obj.Fecha = (DateTime)accesoDatos.Lector["Fecha"];
+                    obj.Medico = new MedicoNegocio().Get(Convert.ToInt32(accesoDatos.Lector["MedicoID"]));
+                    obj.Paciente = new PacienteNegocio().Get(Convert.ToInt32(accesoDatos.Lector["PacienteID"]));
+                    obj.Observaciones = accesoDatos.Lector["Observaciones"].ToString();
+                    obj.Estado = (TurnoEstado)accesoDatos.Lector["Estado"];
+                }
+                return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
             finally
             {

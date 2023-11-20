@@ -25,7 +25,8 @@ namespace App_Gestion_Turnos
 
         protected void grdTurnos_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            var id = grdTurnos.SelectedDataKey.Value.ToString();
+            Response.Redirect("TurnoView.aspx?id=" + id, false);
         }
 
         protected void grdTurnos_RowDataBound(object sender, GridViewRowEventArgs e)

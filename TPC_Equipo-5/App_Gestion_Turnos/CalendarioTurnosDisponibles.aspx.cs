@@ -20,7 +20,7 @@ namespace App_Gestion_Turnos
             int especialidadId = Convert.ToInt32(Request.QueryString["eId"]);
 
 
-            ListaTurnos = negocio.Get(especialidadId);
+            ListaTurnos = negocio.TurnoDisponibleCalendarioGet(especialidadId);
             grdTurnos.DataSource = ListaTurnos;
             grdTurnos.DataBind();
         }

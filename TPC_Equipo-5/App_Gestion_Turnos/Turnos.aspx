@@ -54,8 +54,6 @@
 
     <script type="text/javascript">
 
-        
-
         $(document).ready(function () {
             changeBackgroundColor()
         });
@@ -76,8 +74,12 @@
                     $(rows[i]).children().css("color", "#3ac577");
                     $(rows[i]).children().css("font-weight", "700");
                 }
-                if (lastCellValue === "4") {
+                if (lastCellValue === "2") {
                     $(rows[i]).children().css("color", "tomato");
+                    $(rows[i]).children().css("font-weight", "700");
+                }
+                if (lastCellValue === "4") {
+                    $(rows[i]).children().css("color", "#e59605");
                     $(rows[i]).children().css("font-weight", "700");
                 }
             }

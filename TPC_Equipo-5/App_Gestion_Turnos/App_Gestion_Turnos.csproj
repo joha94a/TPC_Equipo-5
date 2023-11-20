@@ -101,6 +101,7 @@
     <Content Include="Script\bootstrap.min.js" />
     <Content Include="TurnoCrear.aspx" />
     <Content Include="Turnos.aspx" />
+    <Content Include="TurnoView.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="UsuarioView.aspx" />
     <Content Include="Web.config" />
@@ -207,6 +208,13 @@
     </Compile>
     <Compile Include="Turnos.aspx.designer.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TurnoView.aspx.cs">
+      <DependentUpon>TurnoView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TurnoView.aspx.designer.cs">
+      <DependentUpon>TurnoView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>
