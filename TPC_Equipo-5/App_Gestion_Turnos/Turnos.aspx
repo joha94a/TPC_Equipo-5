@@ -38,7 +38,7 @@
     </div>
 
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" OnRowDataBound="grdTurnos_RowDataBound">
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" >
             <Columns>
                 <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
                 <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>

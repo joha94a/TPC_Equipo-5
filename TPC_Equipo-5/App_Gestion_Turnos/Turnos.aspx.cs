@@ -18,7 +18,7 @@ namespace App_Gestion_Turnos
         {
             TurnoNegocio negocio = new TurnoNegocio();
 
-            ListaTurnos = negocio.GetParaBuscador();
+            ListaTurnos = negocio.ListarBuscador(null,null,0);
             grdTurnos.DataSource = ListaTurnos;
             grdTurnos.DataBind();
         }
@@ -29,20 +29,6 @@ namespace App_Gestion_Turnos
             Response.Redirect("TurnoView.aspx?id=" + id, false);
         }
 
-        protected void grdTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if(!IsPostBack)
-            {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    TurnoEstado estado = (TurnoEstado)Convert.ToInt32(e.Row.Cells[4].Text);
-                    if (estado == TurnoEstado.Cancelado)
-                    {
-                        e.Row.BackColor = Color.FromName("Tomato");
-                    }
-                }
-            }
-        }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {

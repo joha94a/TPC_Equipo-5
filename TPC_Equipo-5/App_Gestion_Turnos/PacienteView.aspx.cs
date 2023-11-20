@@ -14,6 +14,8 @@ namespace App_Gestion_Turnos
         public int Id { get; set; }
         PacienteNegocio negocio = new PacienteNegocio();
         public bool VieneDeTurno { get; set; }
+        public List<Turno> ListaTurnos { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)
@@ -31,6 +33,9 @@ namespace App_Gestion_Turnos
                     txtTelefono.Value = obj.Telefono;
                     txtMail.Value = obj.Mail;
                     txtObservaciones.Value = obj.Observaciones;
+                    ListaTurnos = new TurnoNegocio().GetPorPacienteId(obj.Id);
+                    grdTurnos.DataSource = ListaTurnos;
+                    grdTurnos.DataBind();
                 }
             }
             if(Request.QueryString["id"] == null && !IsPostBack)
@@ -91,6 +96,12 @@ namespace App_Gestion_Turnos
         {
             negocio.Delete(Id);
             Response.Redirect("Pacientes.aspx", false);
+        }
+
+        protected void grdTurnos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = grdTurnos.SelectedDataKey.Value.ToString();
+            Response.Redirect("TurnoView.aspx?id=" + id + "&p=true", false);
         }
     }
 }

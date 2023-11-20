@@ -64,7 +64,15 @@
 
     <div class="masterMenu">
         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click"  class="btn btn-primary"/>
-        <a class="btn btn-return" href="Turnos.aspx">Volver</a>
+
+        <%if (VieneDePaciente)
+            {%>
+            <a class="btn btn-return" href="PacienteView.aspx?id=<%:PacienteId%>">Volver</a>
+            <%}
+        else
+        {%>
+            <a class="btn btn-return" href="Turnos.aspx">Volver</a>
+        <%}%>
     </div>
 
     <div class="modal fade" id="AusenteModal" tabindex="-1" aria-labelledby="ausenteModalLabel" aria-hidden="true">

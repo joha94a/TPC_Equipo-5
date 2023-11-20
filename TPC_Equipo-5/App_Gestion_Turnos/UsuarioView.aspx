@@ -4,37 +4,48 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="form_container">
-        <div class="row">
-            <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
-            <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+        <div class="row column1">
+            <div class="control">
+                <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
+                <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+            </div>
         </div>
         <%if (Id > 0)
             {
             %>
-        <div class="row">
-            <label class="form-label" for="txtContrasenaActual">Contraseña actual:</label>
-            <input type="text" class="form-control" id="txtContrasenaActual" runat="server">
+        <div class="row column1">
+            <div class="control">
+                <label class="form-label" for="txtContrasenaActual">Contraseña actual:</label>
+                <input type="text" class="form-control" id="txtContrasenaActual" runat="server">
+            </div>
         </div>
         <%}
             %>
-        <div class="row">
-            <asp:Label ID="lblNuevaContrasena" CssClass="form-label" runat="server" Text="Nueva contraseña:" for="txtNuevaContrasena"></asp:Label>
-            <input type="text" class="form-control" id="txtNuevaContrasena" runat="server">
+        <div class="row column1">
+            <div class="control">
+                <asp:Label ID="lblNuevaContrasena" CssClass="form-label" runat="server" Text="Nueva contraseña:" for="txtNuevaContrasena"></asp:Label>
+                <input type="text" class="form-control" id="txtNuevaContrasena" runat="server">
+            </div>
         </div>
-        <div class="row">
-            <asp:Label ID="lblRepNuevaContrasena" CssClass="form-label" runat="server" Text="Repita nueva contraseña:" for="txtRepNuevaContrasena"></asp:Label>
-            <input type="text" class="form-control" id="txtRepNuevaContrasena" runat="server">
+        <div class="row column1">
+            <div class="control">
+                <asp:Label ID="lblRepNuevaContrasena" CssClass="form-label" runat="server" Text="Repita nueva contraseña:" for="txtRepNuevaContrasena"></asp:Label>
+                <input type="text" class="form-control" id="txtRepNuevaContrasena" runat="server">
+            </div>
         </div>
-        <div class="row">
+        <div class="row column1">
             <div class="control">
                 <label class="form-label" for="cmbPerfilAcceso">Tipo:</label>
                 <asp:DropDownList CssClass="form-select" ID="cmbPerfilAcceso" runat="server"></asp:DropDownList>
             </div>
         </div>
-        <div class="row">
-            <label class="form-label" for="txtMedico">Medico:</label>
-            <input type="text" class="form-control" id="txtMedico" runat="server">
-            <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" class="btn btn-primary" />
+        <div class="row column1">
+            <div class="control">
+                <label class="form-label" for="txtMedico">Medico:</label>
+                <input type="text" class="form-control" id="txtMedico" runat="server">
+
+                <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" class="btn btn-primary" />
+            </div>
         </div>
 
 

@@ -10,16 +10,18 @@
         <a class="btn btn-primary" href="UsuarioView.aspx">Nuevo</a>
     </div>
     <div class="filter_container">
-        <div class="row">
+        <div class="row column1">
             <div class="control">
                 <label class="form-label" for="cmbPerfilAcceso">Tipo:</label>
                 <select class="form-select" id="cmbPerfilAcceso" runat="server"></select>
             </div>
         </div>
-
-        <div class="row">
-            <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
-            <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+        
+        <div class="row column1">
+            <div class="control">
+                <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
+                <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+            </div>
         </div>
 
         <div class="row">

@@ -83,6 +83,22 @@
         <span class="requerido_texto" id="spnMensaje" runat="server"></span>
     </div>
 
+    
+
+    <div class="table_container">
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" >
+            <Columns>
+                <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
+                <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>
+                <asp:BoundField HeaderText="Estado" DataField="EstadoStr"/>
+                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor">
+                    <ItemStyle CssClass="oculto"></ItemStyle>
+                </asp:BoundField>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
+            </Columns>
+        </asp:GridView>
+    </div>
+
     <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -102,6 +118,10 @@
     </div>
     
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        changeBackgroundColor()
+    });
 
     function validar() {
         let hayError = false;
@@ -158,6 +178,31 @@
         else {
             $('#' + id).siblings(".requerido_texto").addClass("oculto")
             $('#' + id).removeClass('requerido')
+        }
+    }
+
+    function changeBackgroundColor() {
+        var table = document.getElementById("ContentPlaceHolder1_grdTurnos");
+        var rows = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+
+            var dateCellValue = cells[cells.length - 5].innerHTML.trim();
+            var lastCellValue = cells[cells.length - 2].innerHTML.trim();
+
+            if (lastCellValue === "1" /*&& dateCellValue === formatDateToDDMMYYYY()*/) {
+                $(rows[i]).children().css("color", "#3ac577");
+                $(rows[i]).children().css("font-weight", "700");
+            }
+            if (lastCellValue === "2") {
+                $(rows[i]).children().css("color", "tomato");
+                $(rows[i]).children().css("font-weight", "700");
+            }
+            if (lastCellValue === "4") {
+                $(rows[i]).children().css("color", "#e59605");
+                $(rows[i]).children().css("font-weight", "700");
+            }
         }
     }
 </script>

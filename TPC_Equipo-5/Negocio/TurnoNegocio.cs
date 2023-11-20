@@ -10,7 +10,7 @@ namespace Negocio
 {
     public class TurnoNegocio
     {
-        public List<Turno> GetParaBuscador()
+        public List<Turno> GetPorPacienteId(int pacienteId)
         {
             List<Turno> objs = new List<Turno>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -33,7 +33,9 @@ namespace Negocio
                                             FROM Turno t
 	                                            INNER JOIN Medico m ON m.Id = t.MedicoID
 	                                            INNER JOIN Paciente p ON p.Id = t.PacienteID
+                                            WHERE p.Id = @pacienteId
                                             ORDER BY t.Fecha DESC");
+                accesoDatos.setearParametro("@pacienteId", pacienteId);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())

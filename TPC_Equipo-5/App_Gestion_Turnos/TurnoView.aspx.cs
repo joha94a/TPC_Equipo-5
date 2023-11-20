@@ -13,6 +13,8 @@ namespace App_Gestion_Turnos
     {
         public Turno Turno { get; set; }
         TurnoNegocio negocio = new TurnoNegocio();
+        public bool VieneDePaciente { get; set; }
+        public int PacienteId { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)
@@ -20,10 +22,20 @@ namespace App_Gestion_Turnos
                 int id = Convert.ToInt32(Request.QueryString["id"]);
                 
                 Turno = negocio.Get(id);
+                PacienteId = Turno.Paciente.Id;
                 if (!IsPostBack)
                 {
                     txtObservaciones.Value = Turno.Observaciones;
                 }
+            }
+
+            if (Request.QueryString["p"] != null && Request.QueryString["p"].ToLower() == "true")
+            {
+                VieneDePaciente = true;
+            }
+            else
+            {
+                VieneDePaciente = false;
             }
         }
 
