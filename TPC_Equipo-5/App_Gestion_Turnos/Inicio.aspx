@@ -4,34 +4,58 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="seccionInicioRecep">
-        <h3>Turnos a reprogramar</h3>
-        <div class="turnosYnovedades">
-            <div class="seccionTurnosRepc">
-                    <table class="table table-hover table-bordered" style="width: 90%;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Número</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Hora</th>
-                                <th scope="col">Médico</th>
-                                <th scope="col">Paciente</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-            </div>
+    <%if(ListaTurnos.Count > 0) { %>
+        
+        
+    <div>
+        <h3 class="tituloPagina">Turnos urgentes</h3>
+    </div>
+    <div class="table_container">
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+            <Columns>
+                <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
+                <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>
+                <asp:BoundField HeaderText="Paciente" DataField="PacienteStr"/>
+                <asp:BoundField HeaderText="Estado" DataField="EstadoStr"/>
+                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor" HeaderStyle-CssClass="oculto">
+                    <ItemStyle CssClass="oculto"></ItemStyle>
+                </asp:BoundField>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
+            </Columns>
+        </asp:GridView>
+    </div>
+    
+      <%} %>
+    <script type="text/javascript">
 
-            <div class="seccionNovedadRepc">
-                <!--espacio para novedades para el recepcionista-->
-                
-            </div>
-        </div>
-
-    </section>
+        $(document).ready(function () {
+            changeBackgroundColor()
+        });
 
 
+        function changeBackgroundColor() {
+            var table = document.getElementById("ContentPlaceHolder1_grdTurnos");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                var dateCellValue = cells[cells.length - 6].innerHTML.trim();
+                var lastCellValue = cells[cells.length - 2].innerHTML.trim();
+
+                if (lastCellValue === "1") {
+                    $(rows[i]).children().css("color", "#3ac577");
+                    $(rows[i]).children().css("font-weight", "700");
+                }
+                if (lastCellValue === "2") {
+                    $(rows[i]).children().css("color", "tomato");
+                    $(rows[i]).children().css("font-weight", "700");
+                }
+                if (lastCellValue === "4") {
+                    $(rows[i]).children().css("color", "#e59605");
+                    $(rows[i]).children().css("font-weight", "700");
+                }
+            }
+        }
+    </script>
 </asp:Content>

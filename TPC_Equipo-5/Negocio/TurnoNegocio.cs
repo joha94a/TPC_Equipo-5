@@ -62,6 +62,56 @@ namespace Negocio
             }
         }
 
+        public List<Turno> GetActivosUrgente()
+        {
+            List<Turno> objs = new List<Turno>();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta(@"SELECT 
+	                                            t.ID, t.Fecha, 
+	                                            m.Apellido + ', ' + m.Nombre Medico, 
+	                                            p.Apellido + ', ' + p.Nombre Paciente, 
+	                                            CASE
+		                                            WHEN t.Estado = 1 THEN 'Activo'
+		                                            WHEN t.Estado = 2 THEN 'Cancelado'
+		                                            WHEN t.Estado = 3 THEN 'Completado'
+		                                            WHEN t.Estado = 4 THEN 'Ausente'
+		                                            ELSE ''
+	                                            END EstadoStr, t.Estado 
+                                            FROM Turno t
+	                                            INNER JOIN Medico m ON m.Id = t.MedicoID
+	                                            INNER JOIN Paciente p ON p.ID = t.PacienteID
+                                            WHERE CAST(t.Fecha AS DATE) <= CAST(DATEADD(DAY, 1, GETDATE()) AS DATE)
+                                            AND t.Estado = 1
+                                            ORDER BY t.Fecha DESC");
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Turno obj = new Turno();
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.Fecha = (DateTime)accesoDatos.Lector["Fecha"];
+                    obj.MedicoStr = accesoDatos.Lector["Medico"].ToString();
+                    obj.PacienteStr = accesoDatos.Lector["Paciente"].ToString();
+                    obj.Estado = (TurnoEstado)accesoDatos.Lector["Estado"];
+                    obj.EstadoStr = accesoDatos.Lector["EstadoStr"].ToString();
+                    obj.EstadoValor = Convert.ToInt32(accesoDatos.Lector["Estado"].ToString());
+                    objs.Add(obj);
+                }
+                return objs;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
         public List<TurnoDisponibleCalendario> TurnoDisponibleCalendarioGet(int especialidadId)
         {
             List<TurnoDisponibleCalendario> objs = new List<TurnoDisponibleCalendario>();

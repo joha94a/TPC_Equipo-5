@@ -3,10 +3,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+    
+    <div class="masterMenu">
+        <a class="btn btn-return" href="TurnoCrear.aspx">Volver</a>
+    </div>
 
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" OnDataBound="grdTurnos_DataBound" DataKeyNames="Id">
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" OnDataBound="grdTurnos_DataBound" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
                 <asp:BoundField HeaderText="Medico" DataField="MedicoStr"/>

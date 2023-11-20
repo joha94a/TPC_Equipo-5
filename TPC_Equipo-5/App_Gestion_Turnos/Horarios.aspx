@@ -134,7 +134,7 @@
     </div>
 
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdHorarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdHorarios_SelectedIndexChanged" DataKeyNames="Id">
+        <asp:GridView runat="server" ID="grdHorarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdHorarios_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Día" DataField="Dia"/>
                 <asp:BoundField HeaderText="Desde" DataField="Hora_InicioStr"/>

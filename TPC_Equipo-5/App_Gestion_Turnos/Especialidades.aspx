@@ -27,7 +27,7 @@
     </div>
 
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdEspecialidades" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdEspecialidades_SelectedIndexChanged" DataKeyNames="Id">
+        <asp:GridView runat="server" ID="grdEspecialidades" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdEspecialidades_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Código" DataField="Codigo"/>
                 <asp:BoundField HeaderText="Descripción" DataField="Descripcion"/>

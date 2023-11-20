@@ -84,14 +84,19 @@
     </div>
 
     
-
+    <%if(ListaTurnos.Count > 0)
+    {%>
+    <div class="message_container">
+        <h4>Turnos</h4>
+    </div>
+    <%} %>
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" >
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
                 <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>
                 <asp:BoundField HeaderText="Estado" DataField="EstadoStr"/>
-                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor">
+                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor" HeaderStyle-CssClass="oculto">
                     <ItemStyle CssClass="oculto"></ItemStyle>
                 </asp:BoundField>
                 <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>

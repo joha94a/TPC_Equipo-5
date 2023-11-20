@@ -38,13 +38,13 @@
     </div>
 
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" >
+        <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
                 <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>
                 <asp:BoundField HeaderText="Paciente" DataField="PacienteStr"/>
                 <asp:BoundField HeaderText="Estado" DataField="EstadoStr"/>
-                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor">
+                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor" HeaderStyle-CssClass="oculto">
                     <ItemStyle CssClass="oculto"></ItemStyle>
                 </asp:BoundField>
                 <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
@@ -62,15 +62,13 @@
             var table = document.getElementById("ContentPlaceHolder1_grdTurnos");
             var rows = table.getElementsByTagName("tr");
 
-            // Start from the second row (skip the header row)
             for (var i = 1; i < rows.length; i++) {
                 var cells = rows[i].getElementsByTagName("td");
 
-                // Get the last cell value
                 var dateCellValue = cells[cells.length - 6].innerHTML.trim();
                 var lastCellValue = cells[cells.length - 2].innerHTML.trim();
 
-                if (lastCellValue === "1" /*&& dateCellValue === formatDateToDDMMYYYY()*/) {
+                if (lastCellValue === "1" ) {
                     $(rows[i]).children().css("color", "#3ac577");
                     $(rows[i]).children().css("font-weight", "700");
                 }
@@ -83,21 +81,6 @@
                     $(rows[i]).children().css("font-weight", "700");
                 }
             }
-        }
-        function formatDateToDDMMYYYY() {
-            var today = new Date();
-
-            var day = today.getDate();
-            var month = today.getMonth() + 1; // Months are zero-based
-            var year = today.getFullYear();
-
-            // Pad day and month with leading zeros if necessary
-            day = day < 10 ? "0" + day : day;
-            month = month < 10 ? "0" + month : month;
-
-            var formattedDate = day + "/" + month + "/" + year;
-
-            return formattedDate;
         }
     </script>
 

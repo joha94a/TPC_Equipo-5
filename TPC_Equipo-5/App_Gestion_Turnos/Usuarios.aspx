@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdUsuarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdUsuarios_SelectedIndexChanged" DataKeyNames="Id">
+        <asp:GridView runat="server" ID="grdUsuarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdUsuarios_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Nombre Usuario" DataField="Nombre_Usuario" />
                 <asp:BoundField HeaderText="Tipo" DataField="PerfilAcceso.Descripcion" />

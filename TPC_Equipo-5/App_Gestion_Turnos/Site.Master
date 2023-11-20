@@ -44,7 +44,6 @@
                             </li>
                           </ul>
                         </div>
-                        <%--<a class="nav-link text-white" href="Turnos.aspx"><i class="bi bi-calendar-range mx-1" style="font-size: 1.5rem"></i>Turnos</a>--%>
                     </li>
                     <li class="nav-item me-3 me-lg-2 nav-link text-white" style="padding:0">
                         <div class="dropdown">
