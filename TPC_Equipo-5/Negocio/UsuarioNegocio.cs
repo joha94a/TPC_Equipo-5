@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -183,7 +184,7 @@ namespace Negocio
                 accesoDatos.setearParametro("@id", id);
                 accesoDatos.ejecutarLectura();
 
-                while (accesoDatos.Lector.Read())
+                if (accesoDatos.Lector.Read())
                 {
                     usuario.Id = id;
                     usuario.Nombre_Usuario = (string)accesoDatos.Lector["Nombre_Usuario"];
@@ -208,6 +209,59 @@ namespace Negocio
             finally
             {
                 accesoDatos.cerrarConexion();
+            }
+        }
+
+        public bool existeUsuario(string nombreUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id FROM Usuario WHERE UPPER(Nombre_Usuario) = @nombreUsuario;");
+                datos.setearParametro("@nombreUsuario", nombreUsuario.ToUpper());
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return true;
+                }
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool passValida(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id FROM Usuario WHERE ID = @id AND Contrasena = @contrasena;");
+                datos.setearParametro("@id", usuario.Id);
+                datos.setearParametro("@contrasena", usuario.Contrasena);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }
