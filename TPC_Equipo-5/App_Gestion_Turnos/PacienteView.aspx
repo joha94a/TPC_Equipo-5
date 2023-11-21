@@ -84,12 +84,9 @@
     </div>
 
     
-    <%if(ListaTurnos.Count > 0)
-    {%>
     <div class="message_container">
         <h4>Turnos</h4>
     </div>
-    <%} %>
     <div class="table_container">
         <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
@@ -103,7 +100,7 @@
             </Columns>
         </asp:GridView>
     </div>
-
+    
     <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

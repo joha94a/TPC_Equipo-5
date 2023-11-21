@@ -14,7 +14,7 @@ namespace App_Gestion_Turnos
         public int Id { get; set; }
         PacienteNegocio negocio = new PacienteNegocio();
         public bool VieneDeTurno { get; set; }
-        public List<Turno> ListaTurnos { get; set; }
+        public List<Turno> ListaTurnos = new List<Turno>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
