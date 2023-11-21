@@ -23,10 +23,10 @@ namespace App_Gestion_Turnos
                 if (!IsPostBack)
                 {
                     PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
-                    txtNombre_Usuario.Value = usuario.Nombre_Usuario;
-                    txtNombre_Usuario.Disabled = true;
+                    txtNombre_Usuario.Text = usuario.Nombre_Usuario;
+                    txtNombre_Usuario.Enabled = false;
                     if(usuario.Medico != null)
-                        txtMedico.Value = usuario.Medico.Nombre;
+                        txtMedico.Text = usuario.Medico.Nombre;
 
                     cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
                     cmbPerfilAcceso.DataTextField = "Descripcion";
@@ -70,10 +70,14 @@ namespace App_Gestion_Turnos
             if (Id == 0) 
             {
                 usuario.Id = 0;
-                usuario.Nombre_Usuario = txtNombre_Usuario.Value;
+                usuario.Nombre_Usuario = txtNombre_Usuario.Text;
                 // ToDo: Validar nombre usuario
-                if (txtNuevaContrasena.Value == txtRepNuevaContrasena.Value && txtNuevaContrasena.Value != "")
-                    usuario.Contrasena = txtNuevaContrasena.Value;
+                if (usuarioNegocio.existeUsuario(usuario.Nombre_Usuario))
+                {
+                    
+                }
+                if (txtNuevaContrasena.Text == txtRepNuevaContrasena.Text && txtNuevaContrasena.Text != "")
+                    usuario.Contrasena = txtNuevaContrasena.Text;
                 else
                 {
                     // ToDo: Validación contraseña
@@ -92,8 +96,8 @@ namespace App_Gestion_Turnos
             {
                 usuario.Id = Id;
                 // ToDo: Validación contraseña vieja correcta
-                if (txtNuevaContrasena.Value == txtRepNuevaContrasena.Value && txtNuevaContrasena.Value != "")
-                    usuario.Contrasena = txtNuevaContrasena.Value;
+                if (txtNuevaContrasena.Text == txtRepNuevaContrasena.Text && txtNuevaContrasena.Text != "")
+                    usuario.Contrasena = txtNuevaContrasena.Text;
                 else
                 {
                     // ToDo: Validación contraseña

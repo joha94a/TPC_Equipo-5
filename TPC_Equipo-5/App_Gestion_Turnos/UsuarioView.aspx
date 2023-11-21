@@ -6,8 +6,8 @@
     <div class="form_container">
         <div class="row column1">
             <div class="control">
-                <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
-                <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+                <asp:Label ID="lblNombre_Usuario" CssClass="form-label" runat="server" Text="Nombre de usuario:" for="txtNombre_Usuario"></asp:Label>
+                <asp:TextBox ID="txtNombre_Usuario" runat="server" CssClass="form-control" />
             </div>
         </div>
         <%if (Id > 0)
@@ -15,8 +15,8 @@
             %>
         <div class="row column1">
             <div class="control">
-                <label class="form-label" for="txtContrasenaActual">Contraseña actual:</label>
-                <input type="text" class="form-control" id="txtContrasenaActual" runat="server">
+                <asp:Label ID="lblContrasenaActual" CssClass="form-label" runat="server" Text="Contraseña actual:" for="txtContrasenaActual"></asp:Label>
+                <asp:TextBox ID="txtContrasenaActual" runat="server" CssClass="form-control" />
             </div>
         </div>
         <%}
@@ -24,25 +24,26 @@
         <div class="row column1">
             <div class="control">
                 <asp:Label ID="lblNuevaContrasena" CssClass="form-label" runat="server" Text="Nueva contraseña:" for="txtNuevaContrasena"></asp:Label>
-                <input type="text" class="form-control" id="txtNuevaContrasena" runat="server">
+                <asp:TextBox ID="txtNuevaContrasena" runat="server" CssClass="form-control" />
             </div>
         </div>
         <div class="row column1">
             <div class="control">
                 <asp:Label ID="lblRepNuevaContrasena" CssClass="form-label" runat="server" Text="Repita nueva contraseña:" for="txtRepNuevaContrasena"></asp:Label>
-                <input type="text" class="form-control" id="txtRepNuevaContrasena" runat="server">
+                <asp:TextBox ID="txtRepNuevaContrasena" runat="server" CssClass="form-control" />
             </div>
         </div>
         <div class="row column1">
             <div class="control">
-                <label class="form-label" for="cmbPerfilAcceso">Tipo:</label>
+                <asp:Label ID="lblPerfilAcceso" CssClass="form-label" runat="server" Text="Tipo:" for="cmbPerfilAcceso"></asp:Label>
                 <asp:DropDownList CssClass="form-select" ID="cmbPerfilAcceso" runat="server"></asp:DropDownList>
             </div>
         </div>
         <div class="row column1">
             <div class="control">
-                <label class="form-label" for="txtMedico">Medico:</label>
-                <input type="text" class="form-control" id="txtMedico" runat="server">
+                <asp:Label ID="lblMedico" CssClass="form-label" runat="server" Text="Medico:" for="txtMedico"></asp:Label>
+                <asp:TextBox ID="txtMedico" runat="server" CssClass="form-control" />
+
 
                 <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" class="btn btn-primary" />
             </div>
