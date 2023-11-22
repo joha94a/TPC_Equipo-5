@@ -30,13 +30,13 @@
                
                     <div class="mb-3">
                         <asp:Label ID="lblPerfilAcceso" CssClass="form-label" runat="server" Text="Tipo:" for="cmbPerfilAcceso"></asp:Label>
-                        <asp:DropDownList CssClass="form-select" ID="cmbPerfilAcceso" runat="server" AutoPostBack="true"></asp:DropDownList>
+                        <asp:DropDownList CssClass="form-select" ID="cmbPerfilAcceso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="cmbPerfilAcceso_SelectedIndexChanged"></asp:DropDownList>
                         <div id="lblValidacionPerfilAcceso" runat="server" class="invalid-feedback"></div>
                     </div>
 
 
                     <%
-                    if (cmbPerfilAcceso.SelectedValue == "1")
+                    if (cmbPerfilAcceso.SelectedValue == "1") // Perfil de médico
                     {
                     %>
 
@@ -45,21 +45,23 @@
                                 <asp:TextBox ID="txtMedico" runat="server" CssClass="form-control" Enabled="false" />
                             </div>
                             <div class="mb-3">
-                                <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" class="btn btn-primary" />
+                                <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" CssClass="btn btn-primary" />
                             </div>
                         <%      
                         if (SeccionMedicoVisible)
                         {
                         %>
-                            
-                            <div class="mb-3">
-                                <asp:Label ID="Label1" CssClass="form-label" runat="server" Text="AAAAAAAAAAAAAAA:" for="txtMedico"></asp:Label>
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"/>
+                            <div class="p-3 border border-primary rounded">
+                                    <div class="mb-3">
+                                        <asp:Label ID="lblFiltroMedico" CssClass="form-label mb-3" runat="server" Text="Filtro:" for="txtFiltroMedico"></asp:Label>
+                                        <asp:TextBox ID="txtFiltroMedico" runat="server" CssClass="form-control w-50 d-inline-block m-3"/>
+                                        <asp:Button ID="btnBuscarMedico" runat="server" Text="Buscar" CssClass="btn btn-secondary btn-sm m-3" />
+                                        <asp:DropDownList CssClass="form-select w-75" ID="cmbMedico" runat="server" AutoPostBack="true"></asp:DropDownList>
+                                    </div>
+                                    <div class="mb-3">
+                                        <asp:Button ID="btnElegirMedico" runat="server" Text="Elegir" CssClass="btn btn-primary btn-sm" />
+                                    </div>
                             </div>
-                            <div class="mb-3">
-                                <asp:Button ID="Button1" runat="server" Text="Aceptar" class="btn btn-primary" />
-                            </div>
-    
                         <%
                         }
                     }

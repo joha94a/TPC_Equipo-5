@@ -195,5 +195,15 @@ namespace App_Gestion_Turnos
             return valido;
         }
 
+        protected void cmbPerfilAcceso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbPerfilAcceso.SelectedValue == null || cmbPerfilAcceso.SelectedValue != "1" )
+            {
+                SeccionMedicoVisible = false;
+                btnMedico.Visible = true;
+            }
+
+            
+        }
     }
 }
