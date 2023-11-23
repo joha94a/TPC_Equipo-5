@@ -55,11 +55,12 @@
                                     <div class="mb-3">
                                         <asp:Label ID="lblFiltroMedico" CssClass="form-label mb-3" runat="server" Text="Filtro:" for="txtFiltroMedico"></asp:Label>
                                         <asp:TextBox ID="txtFiltroMedico" runat="server" CssClass="form-control w-50 d-inline-block m-3"/>
-                                        <asp:Button ID="btnBuscarMedico" runat="server" Text="Buscar" CssClass="btn btn-secondary btn-sm m-3" />
-                                        <asp:DropDownList CssClass="form-select w-75" ID="cmbMedico" runat="server" AutoPostBack="true"></asp:DropDownList>
+                                        <asp:Button ID="btnBuscarMedico" runat="server" Text="Buscar" CssClass="btn btn-secondary btn-sm m-3" OnClick="btnBuscarMedico_Click" AutoPostBack="false" />
+                                        <asp:DropDownList CssClass="form-select w-75" ID="cmbMedico" runat="server" AutoPostBack="false"></asp:DropDownList>
+                                        <div id="lblValidacionElegirMedico" runat="server" class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3">
-                                        <asp:Button ID="btnElegirMedico" runat="server" Text="Elegir" CssClass="btn btn-primary btn-sm" />
+                                        <asp:Button ID="btnElegirMedico" runat="server" Text="Elegir" CssClass="btn btn-primary btn-sm" OnClick="btnElegirMedico_Click" />
                                     </div>
                             </div>
                         <%
@@ -70,15 +71,9 @@
 
                     <div class="masterMenu">
                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" class="btn btn-primary" />
-                        <%if (Id > 1)
-                            {%>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bajaModal">Dar de baja</button>
-                        <%}
-                            else
-                            {%>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bajaModal" disabled="disabled">Dar de baja</button>
-                        <%}%>
-                        <a class="btn btn-return" href="Usuarios.aspx">Volver</a>
+                        <asp:Button ID="btnDarDeBaja" runat="server" Text="Dar de baja" CssClass="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bajaModal" />
+                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CssClass="btn btn-warning" OnClick="btnActivar_Click" />
+                        <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-return" OnClick="btnVolver_Click" />
                     </div>
 
                     <div class="modal fade" id="bajaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -174,13 +174,14 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("select m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m WHERE UPPER(m.Nombre) LIKE @filtro OR UPPER(m.Apellido) LIKE @filtro OR UPPER(m.Telefono) LIKE @filtro OR UPPER(m.Mail) LIKE @filtro;");
+                accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m WHERE UPPER(m.Nombre) LIKE @filtro OR UPPER(m.Apellido) LIKE @filtro OR UPPER(m.Telefono) LIKE @filtro OR UPPER(m.Mail) LIKE @filtro;");
                 accesoDatos.setearParametro("@filtro", "%" + filtro.ToUpper() + "%");
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
                 {
                     Medico aux = new Medico();
+                    aux.Id = int.Parse(accesoDatos.Lector["ID"].ToString());
                     aux.Nombre = (string)accesoDatos.Lector["Nombre"];
                     aux.Apellido = (string)accesoDatos.Lector["Apellido"];
                     aux.Telefono = (string)accesoDatos.Lector["Telefono"];

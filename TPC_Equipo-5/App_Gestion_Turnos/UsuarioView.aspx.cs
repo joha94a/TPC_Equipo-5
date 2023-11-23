@@ -13,6 +13,8 @@ namespace App_Gestion_Turnos
     public partial class UsuarioView : System.Web.UI.Page
     {
         public int Id { get; set; }
+        public int IdMedico { get; set; }
+
         public bool SeccionMedicoVisible { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,8 +30,10 @@ namespace App_Gestion_Turnos
                     PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
                     txtNombre_Usuario.Text = usuario.Nombre_Usuario;
                     txtNombre_Usuario.Enabled = false;
+                    btnBaja.Visible = false;
                     if(usuario.Medico != null)
                         txtMedico.Text = usuario.Medico.Nombre;
+
 
                     cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
                     cmbPerfilAcceso.DataTextField = "Descripcion";
@@ -38,10 +42,27 @@ namespace App_Gestion_Turnos
                     cmbPerfilAcceso.Items.FindByValue(usuario.PerfilAcceso.Id.ToString()).Selected = true;
                     if (usuario.Id == 1)
                         cmbPerfilAcceso.Enabled = false;
+                    if (usuario.Activo)
+                    {
+                        if(usuario.Id == 1)
+                            btnDarDeBaja.Enabled = false;
+                        else
+                        {
+                            btnActivar.Visible = false;
+                            btnDarDeBaja.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        btnActivar.Visible = true;
+                        btnDarDeBaja.Visible = false;
+                    }
                 }
             }
             else
             {
+                btnActivar.Visible = false;
+                btnDarDeBaja.Visible = false;
                 if (!IsPostBack)
                 {
                     PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
@@ -55,12 +76,73 @@ namespace App_Gestion_Turnos
                     cmbPerfilAcceso.SelectedIndex = 0;
                 }
             }
+
+            if (ViewState["SeccionMedicoVisible"] != null)
+                SeccionMedicoVisible = (bool)ViewState["SeccionMedicoVisible"];
+            if (ViewState["IdMedico"] != null)
+                IdMedico = (int)ViewState["IdMedico"];
         }
 
         protected void btnMedico_Click(object sender, EventArgs e)
         {
+            txtFiltroMedico.Text = "";
+            cmbMedico.CssClass = "form-select";
+            lblValidacionElegirMedico.InnerText = "";
+            filtrarMedicos();
             SeccionMedicoVisible = true;
+            ViewState["SeccionMedicoVisible"] = SeccionMedicoVisible;
             btnMedico.Visible = false;
+        }
+
+        private void filtrarMedicos(string filtro = "")
+        {
+            try
+            {
+                MedicoNegocio negocio = new MedicoNegocio();
+                List<Medico> lista = new List<Medico>();
+                if (filtro == "")
+                {
+                    lista = negocio.listarMedicos();
+                }
+                else
+                {
+                    lista = negocio.listarMedicoFiltrado(filtro);
+                }
+                cmbMedico.Items.Clear();
+                for (int i=0; i < lista.Count; i++)
+                {
+                    cmbMedico.Items.Insert(cmbMedico.Items.Count, new ListItem(lista[i].Apellido + ", " + lista[i].Nombre, lista[i].Id.ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                // ToDo: Error
+            }
+        }
+
+        protected void btnBuscarMedico_Click(object sender, EventArgs e)
+        {
+            filtrarMedicos(txtFiltroMedico.Text);
+        }
+
+        protected void btnElegirMedico_Click(object sender, EventArgs e)
+        {
+            if(cmbMedico.SelectedValue == "")
+            {
+                cmbMedico.CssClass = "form-select is-invalid";
+                lblValidacionElegirMedico.InnerText = "Elegir un médico.";
+            }
+            else
+            {
+                cmbMedico.CssClass = "form-select";
+                lblValidacionElegirMedico.InnerText = "";
+                IdMedico = int.Parse(cmbMedico.SelectedValue);
+                ViewState["IdMedico"] = IdMedico;
+                txtMedico.Text = cmbMedico.SelectedItem.Text;
+                SeccionMedicoVisible = false;
+                ViewState["SeccionMedicoVisible"] = SeccionMedicoVisible;
+                btnMedico.Visible = true;
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -200,10 +282,19 @@ namespace App_Gestion_Turnos
             if(cmbPerfilAcceso.SelectedValue == null || cmbPerfilAcceso.SelectedValue != "1" )
             {
                 SeccionMedicoVisible = false;
+                ViewState["SeccionMedicoVisible"] = SeccionMedicoVisible;
                 btnMedico.Visible = true;
             }
+        }
 
-            
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Usuarios.aspx", false);
+        }
+
+        protected void btnActivar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
