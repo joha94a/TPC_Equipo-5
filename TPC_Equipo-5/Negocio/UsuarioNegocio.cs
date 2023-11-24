@@ -15,6 +15,7 @@ namespace Negocio
             List<Usuario> usuarios = new List<Usuario>();
             AccesoDatos accesoDatos = new AccesoDatos();
             PerfilAccesoNegocio perfilAccesoNegocio = new PerfilAccesoNegocio();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
@@ -32,8 +33,7 @@ namespace Negocio
                     }
                     if (!(accesoDatos.Lector["MedicoID"] is DBNull))
                     {
-                        // TODO: Traer Medico usando PerfilAccesoNegocio
-                        // aux.Medico = 
+                        aux.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["MedicoID"].ToString()));
                     }
                     aux.Activo = (bool)accesoDatos.Lector["Activo"];
 
@@ -122,12 +122,33 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+        
+        public void alta(int id)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta("UPDATE Usuario SET Activo = 1 WHERE ID = @Id");
+                accesoDatos.setearParametro("@Id", id);
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
 
         public List<Usuario> listarFiltrado(string filtroNombre, string perfilAccesoId)
         {
             List<Usuario> usuarios = new List<Usuario>();
             AccesoDatos accesoDatos = new AccesoDatos();
             PerfilAccesoNegocio perfilAccesoNegocio = new PerfilAccesoNegocio();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
@@ -152,8 +173,7 @@ namespace Negocio
                     }
                     if (!(accesoDatos.Lector["MedicoID"] is DBNull))
                     {
-                        // TODO: Traer Medico usando PerfilAccesoNegocio
-                        // aux.Medico = 
+                        aux.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["MedicoID"].ToString()));
                     }
                     aux.Activo = (bool)accesoDatos.Lector["Activo"];
 
@@ -177,6 +197,7 @@ namespace Negocio
             Usuario usuario = new Usuario();
             AccesoDatos accesoDatos = new AccesoDatos();
             PerfilAccesoNegocio perfilAccesoNegocio = new PerfilAccesoNegocio();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
@@ -194,8 +215,7 @@ namespace Negocio
                     }
                     if (!(accesoDatos.Lector["MedicoID"] is DBNull))
                     {
-                        // TODO: Traer Medico usando PerfilAccesoNegocio
-                        // aux.Medico = 
+                        usuario.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["MedicoID"].ToString()));
                     }
                     usuario.Activo = (bool)accesoDatos.Lector["Activo"];
                 }
@@ -264,5 +284,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
     }
 }

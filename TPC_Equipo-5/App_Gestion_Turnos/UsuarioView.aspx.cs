@@ -19,75 +19,83 @@ namespace App_Gestion_Turnos
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["id"] != null)
+            try
             {
-                int id = Convert.ToInt32(Request.QueryString["id"]);
-                UsuarioNegocio negocio = new UsuarioNegocio();
-                Usuario usuario = negocio.obtener(id);
-                Id = usuario.Id;
-                if (!IsPostBack)
+                if (Request.QueryString["id"] != null)
                 {
-                    PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
-                    txtNombre_Usuario.Text = usuario.Nombre_Usuario;
-                    txtNombre_Usuario.Enabled = false;
-                    if(usuario.Medico != null)
+                    int id = Convert.ToInt32(Request.QueryString["id"]);
+                    UsuarioNegocio negocio = new UsuarioNegocio();
+                    Usuario usuario = negocio.obtener(id);
+                    Id = usuario.Id;
+                    if (!IsPostBack)
                     {
-                        txtMedico.Text = usuario.Medico.Nombre;
-                        IdMedico = usuario.Medico.Id;
-                        ViewState["IdMedico"] = IdMedico;
-                    }
-                        
-                    cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
-                    cmbPerfilAcceso.DataTextField = "Descripcion";
-                    cmbPerfilAcceso.DataValueField = "Id";
-                    cmbPerfilAcceso.DataBind();
-                    cmbPerfilAcceso.Items.FindByValue(usuario.PerfilAcceso.Id.ToString()).Selected = true;
-                    if (usuario.Id == 1)
-                        cmbPerfilAcceso.Enabled = false;
-                    if (usuario.Activo)
-                    {
-                        if(usuario.Id == 1)
+                        PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
+                        txtNombre_Usuario.Text = usuario.Nombre_Usuario;
+                        txtNombre_Usuario.Enabled = false;
+                        if (usuario.Medico != null)
                         {
-                            btnDarDeBaja.Enabled = false;
-                            btnActivar.Visible = false;
-                        }   
+                            txtMedico.Text = usuario.Medico.Nombre;
+                            IdMedico = usuario.Medico.Id;
+                            ViewState["IdMedico"] = IdMedico;
+                        }
+
+                        cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
+                        cmbPerfilAcceso.DataTextField = "Descripcion";
+                        cmbPerfilAcceso.DataValueField = "Id";
+                        cmbPerfilAcceso.DataBind();
+                        cmbPerfilAcceso.Items.FindByValue(usuario.PerfilAcceso.Id.ToString()).Selected = true;
+                        if (usuario.Id == 1)
+                            cmbPerfilAcceso.Enabled = false;
+                        if (usuario.Activo)
+                        {
+                            if (usuario.Id == 1)
+                            {
+                                btnDarDeBaja.Enabled = false;
+                                btnActivar.Visible = false;
+                            }
+                            else
+                            {
+                                btnActivar.Visible = false;
+                                btnDarDeBaja.Visible = true;
+                            }
+                        }
                         else
                         {
-                            btnActivar.Visible = false;
-                            btnDarDeBaja.Visible = true;
+                            btnActivar.Visible = true;
+                            btnDarDeBaja.Visible = false;
                         }
                     }
-                    else
+                }
+                else
+                {
+                    btnActivar.Visible = false;
+                    btnDarDeBaja.Visible = false;
+                    if (!IsPostBack)
                     {
-                        btnActivar.Visible = true;
-                        btnDarDeBaja.Visible = false;
+                        PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
+                        lblNuevaContrasena.Text = "Contraseña:";
+                        lblRepNuevaContrasena.Text = "Repita contraseña:";
+                        cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
+                        cmbPerfilAcceso.DataTextField = "Descripcion";
+                        cmbPerfilAcceso.DataValueField = "Id";
+                        cmbPerfilAcceso.DataBind();
+                        cmbPerfilAcceso.Items.Insert(0, new ListItem(String.Empty, "0"));
+                        cmbPerfilAcceso.SelectedIndex = 0;
                     }
                 }
-            }
-            else
-            {
-                btnActivar.Visible = false;
-                btnDarDeBaja.Visible = false;
-                if (!IsPostBack)
-                {
-                    PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
-                    lblNuevaContrasena.Text = "Contraseña:";
-                    lblRepNuevaContrasena.Text = "Repita contraseña:";
-                    cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
-                    cmbPerfilAcceso.DataTextField = "Descripcion";
-                    cmbPerfilAcceso.DataValueField = "Id";
-                    cmbPerfilAcceso.DataBind();
-                    cmbPerfilAcceso.Items.Insert(0, new ListItem(String.Empty, "0"));
-                    cmbPerfilAcceso.SelectedIndex = 0;
-                }
-            }
 
-            if (ViewState["SeccionMedicoVisible"] != null)
-                SeccionMedicoVisible = (bool)ViewState["SeccionMedicoVisible"];
-            if (ViewState["IdMedico"] != null)
-                IdMedico = (int)ViewState["IdMedico"];
-            txtNuevaContrasena.Attributes["value"] = txtNuevaContrasena.Text;
-            txtRepNuevaContrasena.Attributes["value"] = txtRepNuevaContrasena.Text;
+                if (ViewState["SeccionMedicoVisible"] != null)
+                    SeccionMedicoVisible = (bool)ViewState["SeccionMedicoVisible"];
+                if (ViewState["IdMedico"] != null)
+                    IdMedico = (int)ViewState["IdMedico"];
+                txtNuevaContrasena.Attributes["value"] = txtNuevaContrasena.Text;
+                txtRepNuevaContrasena.Attributes["value"] = txtRepNuevaContrasena.Text;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnMedico_Click(object sender, EventArgs e)
@@ -123,7 +131,8 @@ namespace App_Gestion_Turnos
             }
             catch (Exception ex)
             {
-                // ToDo: Error
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -156,30 +165,44 @@ namespace App_Gestion_Turnos
         {
             Usuario usuario = new Usuario();
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
-            MedicoNegocio medicoNegocio = new MedicoNegocio();
-
-            usuario.Id = Id;
-            if (validar(usuario))
+            try
             {
-                return;
-                // Insert
-                if (Id == 0)
+                usuario.Id = Id;
+                if (validar(usuario))
                 {
-                    usuarioNegocio.agregar(usuario);
+                    // Insert
+                    if (Id == 0)
+                    {
+                        usuarioNegocio.agregar(usuario);
+                    }
+                    // Update
+                    else
+                    {
+                        usuarioNegocio.modificar(usuario);
+                    }
+                    Response.Redirect("Usuarios.aspx", false);
                 }
-                // Update
-                else
-                {
-                    usuarioNegocio.modificar(usuario);
-                }
-                Response.Redirect("Usuarios.aspx", false);
-            }           
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnBaja_Click(object sender, EventArgs e)
         {
-
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            try
+            {
+                usuarioNegocio.baja(Id);
+                Response.Redirect("Usuarios.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected bool validar(Usuario usuario)
@@ -191,23 +214,31 @@ namespace App_Gestion_Turnos
             if (usuario.Id == 0)
             {
                 // Nombre de usuario
-                if (txtNombre_Usuario.Text.Trim() == "")
+                try
                 {
-                    valido = false;
-                    txtNombre_Usuario.CssClass = "form-control is-invalid";
-                    lblValidacionNombre_Usuario.InnerText = "Usuario requerido.";
+                    if (txtNombre_Usuario.Text.Trim() == "")
+                    {
+                        valido = false;
+                        txtNombre_Usuario.CssClass = "form-control is-invalid";
+                        lblValidacionNombre_Usuario.InnerText = "Usuario requerido.";
+                    }
+                    else if (usuarioNegocio.existeUsuario(txtNombre_Usuario.Text.Trim()))
+                    {
+                        valido = false;
+                        txtNombre_Usuario.CssClass = "form-control is-invalid";
+                        lblValidacionNombre_Usuario.InnerText = "Usuario ya existe.";
+                    }
+                    else
+                    {
+                        txtNombre_Usuario.CssClass = "form-control is-valid";
+                        lblValidacionNombre_Usuario.InnerText = "";
+                        usuario.Nombre_Usuario = txtNombre_Usuario.Text.Trim();
+                    }
                 }
-                else if (usuarioNegocio.existeUsuario(txtNombre_Usuario.Text.Trim()))
+                catch (Exception ex)
                 {
-                    valido = false;
-                    txtNombre_Usuario.CssClass = "form-control is-invalid";
-                    lblValidacionNombre_Usuario.InnerText = "Usuario ya existe.";
-                }
-                else
-                {
-                    txtNombre_Usuario.CssClass = "form-control is-valid";
-                    lblValidacionNombre_Usuario.InnerText = "";
-                    usuario.Nombre_Usuario = txtNombre_Usuario.Text.Trim();
+                    Session.Add("error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
 
                 // Contraseña
@@ -327,7 +358,17 @@ namespace App_Gestion_Turnos
 
         protected void btnActivar_Click(object sender, EventArgs e)
         {
-
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            try
+            {
+                usuarioNegocio.alta(Id);
+                Response.Redirect("Usuarios.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
