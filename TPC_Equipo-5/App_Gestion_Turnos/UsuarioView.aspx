@@ -43,6 +43,7 @@
                             <div class="mb-3">
                                 <asp:Label ID="lblMedico" CssClass="form-label" runat="server" Text="Médico:" for="txtMedico"></asp:Label>
                                 <asp:TextBox ID="txtMedico" runat="server" CssClass="form-control" Enabled="false" />
+                                <div id="lblValidacionMedico" runat="server" class="invalid-feedback"></div>
                             </div>
                             <div class="mb-3">
                                 <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" CssClass="btn btn-primary" />

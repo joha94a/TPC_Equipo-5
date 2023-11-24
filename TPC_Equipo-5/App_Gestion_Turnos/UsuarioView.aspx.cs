@@ -30,11 +30,13 @@ namespace App_Gestion_Turnos
                     PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
                     txtNombre_Usuario.Text = usuario.Nombre_Usuario;
                     txtNombre_Usuario.Enabled = false;
-                    btnBaja.Visible = false;
                     if(usuario.Medico != null)
+                    {
                         txtMedico.Text = usuario.Medico.Nombre;
-
-
+                        IdMedico = usuario.Medico.Id;
+                        ViewState["IdMedico"] = IdMedico;
+                    }
+                        
                     cmbPerfilAcceso.DataSource = negocioPerfilAcceso.listar();
                     cmbPerfilAcceso.DataTextField = "Descripcion";
                     cmbPerfilAcceso.DataValueField = "Id";
@@ -45,7 +47,10 @@ namespace App_Gestion_Turnos
                     if (usuario.Activo)
                     {
                         if(usuario.Id == 1)
+                        {
                             btnDarDeBaja.Enabled = false;
+                            btnActivar.Visible = false;
+                        }   
                         else
                         {
                             btnActivar.Visible = false;
@@ -81,6 +86,8 @@ namespace App_Gestion_Turnos
                 SeccionMedicoVisible = (bool)ViewState["SeccionMedicoVisible"];
             if (ViewState["IdMedico"] != null)
                 IdMedico = (int)ViewState["IdMedico"];
+            txtNuevaContrasena.Attributes["value"] = txtNuevaContrasena.Text;
+            txtRepNuevaContrasena.Attributes["value"] = txtRepNuevaContrasena.Text;
         }
 
         protected void btnMedico_Click(object sender, EventArgs e)
@@ -242,7 +249,20 @@ namespace App_Gestion_Turnos
                     lblValidacionPerfilAcceso.InnerText = "";
                 }
 
-                // ToDo: Médico
+                // Médico
+                if (idPerfilAcceso == 1 && IdMedico == 0)
+                {
+                    valido = false;
+                    txtMedico.CssClass = "form-control is-invalid";
+                    lblValidacionMedico.InnerText = "Medico requerido.";
+                }
+                else if (idPerfilAcceso == 1 && IdMedico != 0)
+                {
+                    usuario.Medico = new Medico();
+                    usuario.Medico.Id = IdMedico;
+                    txtMedico.CssClass = "form-control is-valid";
+                    lblValidacionMedico.InnerText = "";
+                }
 
             }
             // Modificacion
@@ -271,7 +291,20 @@ namespace App_Gestion_Turnos
                 usuario.PerfilAcceso = new PerfilAcceso();
                 usuario.PerfilAcceso.Id = int.Parse(cmbPerfilAcceso.SelectedItem.Value);
 
-                // ToDo: Médico
+                // Médico
+                if (int.Parse(cmbPerfilAcceso.SelectedItem.Value) == 1 && IdMedico == 0)
+                {
+                    valido = false;
+                    txtMedico.CssClass = "form-control is-invalid";
+                    lblValidacionMedico.InnerText = "Medico requerido.";
+                }
+                else
+                {
+                    usuario.Medico = new Medico();
+                    usuario.Medico.Id = IdMedico;
+                    txtMedico.CssClass = "form-control is-valid";
+                    lblValidacionMedico.InnerText = "";
+                }
 
             }
             return valido;
