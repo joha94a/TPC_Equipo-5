@@ -2,6 +2,8 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,7 +19,7 @@ namespace App_Gestion_Turnos
         protected void Page_Load(object sender, EventArgs e)
         {
             PerfilAccesoNegocio negocioPerfilAcceso = new PerfilAccesoNegocio();
-            ListaUsuarios = negocio.listar();
+            ListaUsuarios = negocio.listar(true);
             if (!IsPostBack)
             {
                 grdUsuarios.DataSource = ListaUsuarios;
@@ -38,7 +40,7 @@ namespace App_Gestion_Turnos
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            string nombre_usuario = txtNombre_Usuario.Value;
+            string nombre_usuario = txtNombre_Usuario.Text;
             int indiceSeleccionado = cmbPerfilAcceso.SelectedIndex;
             string valorSeleccionado;
             if (indiceSeleccionado >= 0)
@@ -46,7 +48,7 @@ namespace App_Gestion_Turnos
             else
                 valorSeleccionado = "";
             if (nombre_usuario != "" || valorSeleccionado != "")
-                grdUsuarios.DataSource = negocio.listarFiltrado(nombre_usuario, valorSeleccionado);
+                grdUsuarios.DataSource = negocio.listarFiltrado(nombre_usuario, valorSeleccionado, true);
             else
             {
                 grdUsuarios.DataSource = null;
@@ -55,5 +57,21 @@ namespace App_Gestion_Turnos
             grdUsuarios.DataBind();
         }
 
+        protected void grdUsuarios_DataBound(object sender, EventArgs e)
+        {
+            foreach ( GridViewRow row in grdUsuarios.Rows)
+            {
+                CheckBox chk = row.Cells[2].Controls[0] as CheckBox;
+
+                if (!chk.Checked)
+                {
+                    for (int i=0;  i < row.Cells.Count-1; i++)
+                    {
+                        row.Cells[i].ForeColor = Color.Red;
+                    }
+                }
+            }
+
+        }
     }
 }

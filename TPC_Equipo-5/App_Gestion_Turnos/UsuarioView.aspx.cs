@@ -34,7 +34,7 @@ namespace App_Gestion_Turnos
                         txtNombre_Usuario.Enabled = false;
                         if (usuario.Medico != null)
                         {
-                            txtMedico.Text = usuario.Medico.Nombre;
+                            txtMedico.Text = usuario.Medico.Apellido + ", " + usuario.Medico.Nombre;
                             IdMedico = usuario.Medico.Id;
                             ViewState["IdMedico"] = IdMedico;
                         }
@@ -294,6 +294,10 @@ namespace App_Gestion_Turnos
                     txtMedico.CssClass = "form-control is-valid";
                     lblValidacionMedico.InnerText = "";
                 }
+                else
+                {
+                    usuario.Medico = null;
+                }
 
             }
             // Modificacion
@@ -329,12 +333,16 @@ namespace App_Gestion_Turnos
                     txtMedico.CssClass = "form-control is-invalid";
                     lblValidacionMedico.InnerText = "Medico requerido.";
                 }
-                else
+                else if (int.Parse(cmbPerfilAcceso.SelectedItem.Value) == 1 && IdMedico != 0)
                 {
                     usuario.Medico = new Medico();
                     usuario.Medico.Id = IdMedico;
                     txtMedico.CssClass = "form-control is-valid";
                     lblValidacionMedico.InnerText = "";
+                }
+                else
+                {
+                    usuario.Medico = null;
                 }
 
             }
@@ -370,5 +378,6 @@ namespace App_Gestion_Turnos
                 Response.Redirect("Error.aspx", false);
             }
         }
+
     }
 }

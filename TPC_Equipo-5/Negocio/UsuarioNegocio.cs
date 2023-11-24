@@ -10,7 +10,7 @@ namespace Negocio
 {
     public class UsuarioNegocio
     {
-        public List<Usuario> listar()
+        public List<Usuario> listar(bool verInactivos=false)
         {
             List<Usuario> usuarios = new List<Usuario>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -19,7 +19,11 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1;");
+                if (verInactivos)
+                    accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario;");
+                else
+                    accesoDatos.setearConsulta("SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1;");
+
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -143,7 +147,7 @@ namespace Negocio
             }
         }
 
-        public List<Usuario> listarFiltrado(string filtroNombre, string perfilAccesoId)
+        public List<Usuario> listarFiltrado(string filtroNombre, string perfilAccesoId, bool verInactivos=false)
         {
             List<Usuario> usuarios = new List<Usuario>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -152,7 +156,11 @@ namespace Negocio
 
             try
             {
-                string consulta = "SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = 1";
+                string consulta = "SELECT ID, Nombre_Usuario, PerfilAccesoID, MedicoID, Activo FROM Usuario WHERE Activo = ";
+                if (verInactivos)
+                    consulta += "Activo";
+                else
+                    consulta += "1";
                 if (filtroNombre != "")
                     consulta += " AND UPPER(Nombre_Usuario) LIKE @filtroNombre";
                 if (perfilAccesoId != "")

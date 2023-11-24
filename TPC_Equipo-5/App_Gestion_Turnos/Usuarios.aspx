@@ -20,7 +20,7 @@
         <div class="row column1">
             <div class="control">
                 <label class="form-label" for="txtNombre_Usuario">Nombre de usuario:</label>
-                <input type="text" class="form-control" id="txtNombre_Usuario" runat="server">
+                <asp:TextBox ID="txtNombre_Usuario" runat="server" CssClass="form-control" AutoCompleteType="Disabled"/>
             </div>
         </div>
 
@@ -29,11 +29,12 @@
         </div>
     </div>
     <div class="table_container">
-        <asp:GridView runat="server" ID="grdUsuarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdUsuarios_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+        <asp:GridView runat="server" ID="grdUsuarios" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdUsuarios_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros" OnDataBound="grdUsuarios_DataBound">
             <Columns>
                 <asp:BoundField HeaderText="Nombre Usuario" DataField="Nombre_Usuario" />
                 <asp:BoundField HeaderText="Tipo" DataField="PerfilAcceso.Descripcion" />
-                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
+                <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
+                <asp:CommandField ShowSelectButton="true" SelectText="Editar" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
             </Columns>
         </asp:GridView>
     </div>

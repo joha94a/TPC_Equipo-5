@@ -55,7 +55,7 @@
                             <div class="p-3 border border-primary rounded">
                                     <div class="mb-3">
                                         <asp:Label ID="lblFiltroMedico" CssClass="form-label mb-3" runat="server" Text="Filtro:" for="txtFiltroMedico"></asp:Label>
-                                        <asp:TextBox ID="txtFiltroMedico" runat="server" CssClass="form-control w-50 d-inline-block m-3"/>
+                                        <asp:TextBox ID="txtFiltroMedico" runat="server" CssClass="form-control w-50 d-inline-block m-3" AutoCompleteType="Disabled"/>
                                         <asp:Button ID="btnBuscarMedico" runat="server" Text="Buscar" CssClass="btn btn-secondary btn-sm m-3" OnClick="btnBuscarMedico_Click" AutoPostBack="false" />
                                         <asp:DropDownList CssClass="form-select w-75" ID="cmbMedico" runat="server" AutoPostBack="false"></asp:DropDownList>
                                         <div id="lblValidacionElegirMedico" runat="server" class="invalid-feedback"></div>
@@ -77,7 +77,16 @@
                         <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-return" OnClick="btnVolver_Click" />
                     </div>
 
-                    <div class="modal fade" id="bajaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+                    </div>
+
+
+                                        
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+                            <div class="modal fade" id="bajaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -94,12 +103,5 @@
                             </div>
                         </div>
                     </div>
-
-                    </div>
-
-
-                                        
-            </ContentTemplate>
-        </asp:UpdatePanel>
     </div>
 </asp:Content>
