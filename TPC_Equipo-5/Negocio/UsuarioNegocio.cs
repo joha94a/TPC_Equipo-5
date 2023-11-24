@@ -266,7 +266,7 @@ namespace Negocio
             }
         }
 
-        public bool passValida(Usuario usuario)
+        public int passValida(Usuario usuario)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -278,10 +278,10 @@ namespace Negocio
 
                 if (datos.Lector.Read())
                 {
-                    return true;
+                    return int.Parse(datos.Lector["Id"].ToString());
                 }
 
-                return false;
+                return 0;
             }
             catch (Exception ex)
             {
