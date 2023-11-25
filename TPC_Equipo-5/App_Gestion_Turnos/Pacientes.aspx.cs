@@ -17,6 +17,11 @@ namespace App_Gestion_Turnos
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.isRecep(Session["usuario"]) && !Seguridad.isAdmin(Session["usuario"]))
+            {
+                Session.Add("error", "No tiene permisos para ver esta página.");
+                Response.Redirect("Error.aspx", false);
+            }
             ListaPacientes = negocio.listarPacientes();
             grdPacientes.DataSource = ListaPacientes;
             grdPacientes.DataBind();

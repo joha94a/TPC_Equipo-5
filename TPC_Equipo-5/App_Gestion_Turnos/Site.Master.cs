@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,20 @@ namespace App_Gestion_Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Page is Default || Page is Error))
+            {
+                if (!Seguridad.sesionActiva(Session["usuario"]))
+                    Response.Redirect("Default.aspx", false);
+            }
 
+            if (Seguridad.sesionActiva(Session["usuario"]))
+                btnSalir.Visible = true;
+        }
+
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Default.aspx", false);
         }
     }
 }

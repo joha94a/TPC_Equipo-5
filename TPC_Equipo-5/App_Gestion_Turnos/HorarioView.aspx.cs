@@ -14,6 +14,12 @@ namespace App_Gestion_Turnos
         public int Id { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.isRecep(Session["usuario"]) && !Seguridad.isAdmin(Session["usuario"]))
+            {
+                Session.Add("error", "No tiene permisos para ver esta página.");
+                Response.Redirect("Error.aspx", false);
+            }
+
             if (Request.QueryString["id"] != null)
             {
                 Id = Convert.ToInt32(Request.QueryString["id"]);

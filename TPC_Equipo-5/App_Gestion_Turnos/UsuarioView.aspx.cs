@@ -19,6 +19,12 @@ namespace App_Gestion_Turnos
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.isAdmin(Session["usuario"]))
+            {
+                Session.Add("error", "Necesita permisos de administrador para ver esta página.");
+                Response.Redirect("Error.aspx", false);
+            }
+
             try
             {
                 if (Request.QueryString["id"] != null)
@@ -179,6 +185,16 @@ namespace App_Gestion_Turnos
                     else
                     {
                         usuarioNegocio.modificar(usuario);
+                        if(usuario.Id == ((Usuario)Session["usuario"]).Id)
+                        {
+                            usuario = usuarioNegocio.obtener(usuario.Id);
+                            if (!usuario.Activo)
+                            {
+                                Session.Clear();
+                                Response.Redirect("Default.aspx", false);
+                            }
+                            Session.Add("usuario", usuario);
+                        }
                     }
                     Response.Redirect("Usuarios.aspx", false);
                 }

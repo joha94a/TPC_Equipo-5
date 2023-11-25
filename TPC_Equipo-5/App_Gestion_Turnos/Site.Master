@@ -69,6 +69,9 @@
                     <li class="nav-item me-3 me-lg-2">
                         <a class="nav-link text-white" href="Usuarios.aspx"><i class="bi bi-person-fill-gear mx-1" style="font-size: 1.5rem"></i>Usuarios</a>
                     </li>
+                    <li class="nav-item me-3 me-lg-2">
+                        <asp:LinkButton ID="btnSalir" runat="server" CssClass="btn btn-danger mt-1" Visible="false" OnClick="btnSalir_Click" ><i class="bi bi-box-arrow-left mx-1 me-3 me-lg-2"></i>Salir</asp:LinkButton>
+                    </li>
                 </ul>
             </div>
         </nav>
