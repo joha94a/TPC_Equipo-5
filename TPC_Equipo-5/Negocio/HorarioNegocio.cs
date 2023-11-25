@@ -150,5 +150,40 @@ namespace Negocio
                 accesoDatos.cerrarConexion();
             }
         }
+
+        public List<Horario> obtenerHorarioPorMedico(int idMedico)
+        {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+            List<Horario> horarios = new List<Horario>();
+            try
+            {
+                accesoDatos.setearConsulta("select h.ID, h.Dia, h.Hora_Inicio, h.Hora_Fin from Medico_Horario mh inner join Horario h on mh.IDHorario = h.ID where mh.IDMedico = @Id");
+                accesoDatos.setearParametro("@id", idMedico);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Horario aux = new Horario();
+                    aux.Id = (int)accesoDatos.Lector["ID"];
+                    aux.Dia = (Dia)(int)accesoDatos.Lector["Dia"];
+                    aux.Hora_Inicio = (TimeSpan)accesoDatos.Lector["Hora_Inicio"];
+                    aux.Hora_Fin = (TimeSpan)accesoDatos.Lector["Hora_Fin"];
+
+                    horarios.Add(aux);
+                }
+
+                return horarios;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+
+        }
     }
 }

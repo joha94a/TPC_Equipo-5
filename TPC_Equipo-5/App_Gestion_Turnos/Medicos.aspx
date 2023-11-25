@@ -14,7 +14,7 @@
     <div class="seccionFiltros">
         <asp:Label ID="lblFiltro" runat="server" Text="Buscar médico:"></asp:Label>
         <asp:TextBox ID="txtFiltro" runat="server"></asp:TextBox>
-        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click"/>
+        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" />
     </div>
     <div class="seccionAgregar">
         <!--seccion para boton agregar medico-->
@@ -47,7 +47,13 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </td>
-                            <td></td>
+                            <td>
+                                <asp:Repeater ID="repHorario" runat="server" DataSource='<%# Eval("Horarios") %>'>
+                                    <ItemTemplate>
+                                        <%# Eval("Dia") %><br /> <%# Eval("Hora_Inicio") %> a  <%# Eval("Hora_Fin") %> <br />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </td>
                             <td><a class="btn btn-primary" href="MedicoView.aspx">Ver/Modificar</a></td>
                         </tr>
                     </ItemTemplate>

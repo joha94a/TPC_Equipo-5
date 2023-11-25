@@ -27,7 +27,7 @@ CREATE TABLE Especialidad (
 
 
 CREATE TABLE Horario (
-	ID INT IDENTITY(1,1),
+	ID INT IDENTITY(1,1) PRIMARY KEY,
 	Dia INT NOT NULL,
 	Hora_Inicio TIME NOT NULL,
 	Hora_Fin TIME NOT NULL,
@@ -82,10 +82,10 @@ create table Medico_Especialidad(
 	ID INT IDENTITY(1,1) primary key not null,
 	IDEspecialidad int not null foreign key references Especialidad(ID),
 	IDMedico int not null foreign key references Medico(ID)
-)
+);
 
 create table Medico_Horario(
 	ID INT IDENTITY(1,1) not null,
 	IDHorario int not null foreign key references Horario(ID),
 	IDMedico int not null foreign key references Medico(ID)
-)
+);

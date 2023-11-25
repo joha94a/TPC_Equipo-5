@@ -31,7 +31,10 @@ namespace Negocio
 
                     EspecialidadNegocio espNegocio = new EspecialidadNegocio();
                     aux.Especialidades = espNegocio.obtenerEspPorMedico(aux.Id);
-            
+
+                    HorarioNegocio horarioNegocio = new HorarioNegocio();
+                    aux.Horarios = horarioNegocio.obtenerHorarioPorMedico(aux.Id);
+
                     medicos.Add(aux);
                 }
 
