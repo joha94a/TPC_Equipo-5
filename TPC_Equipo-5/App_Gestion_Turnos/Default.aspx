@@ -20,19 +20,19 @@
                                         <p class="text-white-50 mb-5">Ingrese su usuario y contraseña</p>
 
                                         <div class="form-outline form-white mb-4">
-                                            <asp:Label Text="Usuario" runat="server" class="form-label" />
+                                            <asp:Label Text="Usuario" runat="server" CssClass="form-label" />
                                             <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control"></asp:TextBox>
-                                            <div id="lblValidacionUsuario" runat="server" class="invalid-feedback"></div>
+                                            <div ID="lblValidacionUsuario" runat="server" class="invalid-feedback" style="display:block"></div>
                                         </div>
 
                                         <div class="form-outline form-white mb-4">
                                             <asp:Label ID="lblPassword" CssClass="form-label" runat="server" Text="Contraseña" for="txtPassword"></asp:Label>
                                             <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
-                                            <div id="lblValidacionPassword" runat="server" class="invalid-feedback"></div>
+                                            <div ID="lblValidacionPassword" runat="server" class="invalid-feedback" style="display:block"></div>
                                         </div>
 
                                         <p class="small mb-3 pb-lg-1"><a class="text-white-50" href="#!">Olvidó su contraseña?</a></p>
-                                        <asp:Button ID="btnLogin" runat="server" Text="Ingresar" class="btn btn-outline-light btn-lg px-5" OnClick="btnLogin_Click" />
+                                        <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn btn-outline-light btn-lg px-5" OnClick="btnLogin_Click" />
                                     </div>
                                 </div>
                             </div>

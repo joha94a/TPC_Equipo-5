@@ -13,7 +13,8 @@ namespace App_Gestion_Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Seguridad.sesionActiva(Session["usuario"]))
+                Response.Redirect("Inicio.aspx", false);
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace App_Gestion_Turnos
                     else
                     {
                         lblValidacionUsuario.InnerHtml = "";
-                        lblValidacionPassword.InnerHtml = "Contraseña inválida.";
+                        lblValidacionPassword.InnerHtml = "Usuario o contraseña incorrecta.";
                     }
                 }
                 catch (Exception ex)

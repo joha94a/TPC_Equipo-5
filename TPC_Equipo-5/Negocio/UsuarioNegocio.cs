@@ -271,8 +271,8 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id FROM Usuario WHERE ID = @id AND Contrasena = @contrasena;");
-                datos.setearParametro("@id", usuario.Id);
+                datos.setearConsulta("SELECT Id FROM Usuario WHERE UPPER(Nombre_Usuario) = @nombre_usuario AND Contrasena = @contrasena;");
+                datos.setearParametro("@nombre_usuario", usuario.Nombre_Usuario);
                 datos.setearParametro("@contrasena", usuario.Contrasena);
                 datos.ejecutarLectura();
 
