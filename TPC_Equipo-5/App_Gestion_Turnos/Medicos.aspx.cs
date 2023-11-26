@@ -19,9 +19,12 @@ namespace App_Gestion_Turnos
                 Session.Add("error", "Necesita permisos de administrador para ver esta página.");
                 Response.Redirect("Error.aspx", false);
             }
-
             string filtro = Request.QueryString["filtro"];
             MedicoNegocio negocio = new MedicoNegocio();
+
+            ListaMedicos = negocio.listarMedicos();
+            grdMedicos.DataSource = ListaMedicos;
+            grdMedicos.DataBind();
 
             if (!IsPostBack && !string.IsNullOrEmpty(filtro))
             {
@@ -35,9 +38,15 @@ namespace App_Gestion_Turnos
 
             if (!IsPostBack)
             {
-                repMedicos.DataSource = ListaMedicos;
-                repMedicos.DataBind();
+                //repMedicos.DataSource = ListaMedicos;
+                //repMedicos.DataBind();
             }
+        }
+
+        protected void grdMedicos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = grdMedicos.SelectedDataKey.Value.ToString();
+            Response.Redirect("MedicoView.aspx?id=" + id, false);
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -52,5 +61,21 @@ namespace App_Gestion_Turnos
                 Response.Redirect("Medicos.aspx", false);
             }
         }
+
+        protected string GetEspecialidadesDescription(object especialidades)
+        {
+            if (especialidades != null)
+            {
+                var especialidadesList = especialidades as List<Especialidad>; 
+
+                if (especialidadesList != null && especialidadesList.Any())
+                {
+                    return string.Join(", ", especialidadesList.Select(e => e.Descripcion));
+                }
+            }
+
+            return "Sin especialidad";
+        }
+
     }
 }

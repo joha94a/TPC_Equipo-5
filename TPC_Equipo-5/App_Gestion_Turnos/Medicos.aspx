@@ -19,48 +19,22 @@
     <div class="seccionAgregar">
         <!--seccion para boton agregar medico-->
     </div>
-    <div class="seccionTabla">
-        <table class="table table-hover table-bordered" style="width: 90%;">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Mail</th>
-                    <th scope="col">Especialidad</th>
-                    <th scope="col">Horarios</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <asp:Repeater ID="repMedicos" runat="server">
-                    <ItemTemplate>
-                        <tr>
-                            <td><%#Eval("Nombre") %></td>
-                            <td><%#Eval("Apellido") %></td>
-                            <td><%#Eval("Telefono") %></td>
-                            <td><%#Eval("Mail") %></td>
-                            <td>
-                                <asp:Repeater ID="repEspecialidades" runat="server" DataSource='<%# Eval("Especialidades") %>'>
-                                    <ItemTemplate>
-                                        <%# Eval("Descripcion") %><br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td>
-                                <asp:Repeater ID="repHorario" runat="server" DataSource='<%# Eval("Horarios") %>'>
-                                    <ItemTemplate>
-                                        <%# Eval("Dia") %><br /> <%# Eval("Hora_Inicio") %> a  <%# Eval("Hora_Fin") %> <br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td><a class="btn btn-primary" href="MedicoView.aspx">Ver/Modificar</a></td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </tbody>
-        </table>
-    </div>
+    
+    <asp:GridView runat="server" ID="grdMedicos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdMedicos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+    <Columns>
+        <asp:BoundField HeaderText="Nombre" DataField="Nombre"/>
+        <asp:BoundField HeaderText="Apellido" DataField="Apellido"/>
+        <asp:BoundField HeaderText="Mail" DataField="Mail"/>
+        <asp:TemplateField HeaderText="Especialidades">
+            <ItemTemplate>
+                <asp:Literal runat="server" ID="litEspecialidades" Text='<%# GetEspecialidadesDescription(Eval("Especialidades")) %>'></asp:Literal>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
+    </Columns>
+</asp:GridView>
+
+
 
     <!--VISTA PARA LOS MEDICOS
 

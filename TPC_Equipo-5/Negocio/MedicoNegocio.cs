@@ -56,11 +56,25 @@ namespace Negocio
 
             try
             {
-                accesoDatos.setearConsulta("INSERT INTO Medico values('" + medico.Nombre + "'," +
-                    "'" + medico.Apellido + "'," +
-                    "'" + medico.Telefono + "'," +
-                    "'" + medico.Mail + "')");
-               
+                if (medico.Id > 0)
+                {
+                    accesoDatos.setearConsulta(@"UPDATE Medico set 
+                                                Nombre = @Nombre, 
+                                                Apellido = @Apellido,
+                                                Telefono = @Telefono, 
+                                                Mail = @Mail
+                                                WHERE ID = @id");
+                    accesoDatos.setearParametro("@id", medico.Id);
+                }
+                else
+                {
+                    accesoDatos.setearConsulta("INSERT INTO Medico values (@Nombre, @Apellido, @Telefono, @Mail);");
+                }
+                
+                accesoDatos.setearParametro("@Nombre", medico.Nombre);
+                accesoDatos.setearParametro("@Apellido", medico.Apellido);
+                accesoDatos.setearParametro("@Telefono", medico.Telefono);
+                accesoDatos.setearParametro("@Mail", medico.Mail);
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)
