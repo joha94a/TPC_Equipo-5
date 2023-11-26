@@ -11,28 +11,48 @@
         <a class="btn btn-primary" href="MedicoView.aspx">Agregar médico</a>
     </div>
 
-    <div class="seccionFiltros">
-        <asp:Label ID="lblFiltro" runat="server" Text="Buscar médico:"></asp:Label>
-        <asp:TextBox ID="txtFiltro" runat="server"></asp:TextBox>
-        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" />
+    <div class="filter_container">
+        <div class="row">
+            <div class="control">
+                <label class="form-label" for="txtNombre">Nombre o Apellido</label>
+                <input type="text" class="form-control" id="txtNombre" runat="server" style="width: 300px">
+            </div>
+
+            <div class="control">
+                <label class="form-label" for="txtMail">Mail</label>
+                <input type="text" class="form-control" id="txtMail" runat="server" style="width: 300px">
+            </div>
+
+            <div class="control">
+                <label class="form-label" for="ddlEspecialidad">Especialidad</label>
+                    <asp:DropDownList class="form-select" ID="ddlEspecialidad" runat="server" style="width: 300px" AutoPostBack="true"></asp:DropDownList>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnFiltrar_Click" class="btn btn-primary" />
+        </div>
     </div>
-    <div class="seccionAgregar">
-        <!--seccion para boton agregar medico-->
+
+
+    <!--Seccion donde se listan los medicos-->
+    <div class="table_container">
+        <asp:GridView runat="server" ID="grdMedicos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdMedicos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+            <Columns>
+                <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
+                <asp:BoundField HeaderText="Mail" DataField="Mail" />
+                <asp:TemplateField HeaderText="Especialidades">
+                    <ItemTemplate>
+                        <asp:Literal runat="server" ID="litEspecialidades" Text='<%# GetEspecialidadesDescription(Eval("Especialidades")) %>'></asp:Literal>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
+            </Columns>
+        </asp:GridView>
     </div>
-    
-    <asp:GridView runat="server" ID="grdMedicos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdMedicos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
-    <Columns>
-        <asp:BoundField HeaderText="Nombre" DataField="Nombre"/>
-        <asp:BoundField HeaderText="Apellido" DataField="Apellido"/>
-        <asp:BoundField HeaderText="Mail" DataField="Mail"/>
-        <asp:TemplateField HeaderText="Especialidades">
-            <ItemTemplate>
-                <asp:Literal runat="server" ID="litEspecialidades" Text='<%# GetEspecialidadesDescription(Eval("Especialidades")) %>'></asp:Literal>
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
-    </Columns>
-</asp:GridView>
 
 
 

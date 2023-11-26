@@ -219,6 +219,41 @@ namespace Negocio
             }
         }
 
+        public List<Medico> listarMedicoFiltrado(string nombreApellido, string mail, string especialidad)
+        {
+            List<Medico> medicos = new List<Medico>();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m WHERE UPPER(m.Nombre) LIKE @filtro OR UPPER(m.Apellido) LIKE @filtro OR UPPER(m.Telefono) LIKE @filtro OR UPPER(m.Mail) LIKE @filtro;");
+                accesoDatos.setearParametro("@filtro", "%" + "" + "%");
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Medico aux = new Medico();
+                    aux.Id = int.Parse(accesoDatos.Lector["ID"].ToString());
+                    aux.Nombre = (string)accesoDatos.Lector["Nombre"];
+                    aux.Apellido = (string)accesoDatos.Lector["Apellido"];
+                    aux.Telefono = (string)accesoDatos.Lector["Telefono"];
+                    aux.Mail = (string)accesoDatos.Lector["Mail"];
+
+                    medicos.Add(aux);
+                }
+
+                return medicos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
         public int RelacionesDeEspecialidad(int especialidadId)
         {
             int medicos = 0;

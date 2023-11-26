@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,8 @@ namespace App_Gestion_Turnos
     public partial class Medicos : System.Web.UI.Page
     {
         public List<Medico> ListaMedicos { get; set; }
+        MedicoNegocio negocio = new MedicoNegocio();
+        EspecialidadNegocio negocioEsp = new EspecialidadNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Seguridad.isAdmin(Session["usuario"]))
@@ -19,8 +22,8 @@ namespace App_Gestion_Turnos
                 Session.Add("error", "Necesita permisos de administrador para ver esta página.");
                 Response.Redirect("Error.aspx", false);
             }
+
             string filtro = Request.QueryString["filtro"];
-            MedicoNegocio negocio = new MedicoNegocio();
 
             ListaMedicos = negocio.listarMedicos();
             grdMedicos.DataSource = ListaMedicos;
@@ -28,8 +31,8 @@ namespace App_Gestion_Turnos
 
             if (!IsPostBack && !string.IsNullOrEmpty(filtro))
             {
-                ListaMedicos = negocio.listarMedicoFiltrado(filtro);
-                txtFiltro.Text = filtro;
+                //ListaMedicos = negocio.listarMedicoFiltrado(filtro);
+                //txtFiltro.Text = filtro;
             }
             else
             {
@@ -38,6 +41,8 @@ namespace App_Gestion_Turnos
 
             if (!IsPostBack)
             {
+                ddlEspecialidad.DataSource = negocioEsp.Get();
+                ddlEspecialidad.DataBind();
                 //repMedicos.DataSource = ListaMedicos;
                 //repMedicos.DataBind();
             }
@@ -51,7 +56,15 @@ namespace App_Gestion_Turnos
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string filtro = txtFiltro.Text;
+            string nombreApellido = txtNombre.Value;
+            string mail = txtMail.Value;
+            string especialidad = ddlEspecialidad.SelectedItem.ToString();
+
+            grdMedicos.DataSource =  negocio.listarMedicoFiltrado(nombreApellido, mail, especialidad);
+            grdMedicos.DataBind();
+           
+            
+            /*
             if (!string.IsNullOrEmpty(filtro))
             {
                 Response.Redirect("Medicos.aspx?filtro=" + filtro, false);
@@ -59,7 +72,7 @@ namespace App_Gestion_Turnos
             else
             {
                 Response.Redirect("Medicos.aspx", false);
-            }
+            }*/
         }
 
         protected string GetEspecialidadesDescription(object especialidades)
@@ -76,6 +89,13 @@ namespace App_Gestion_Turnos
 
             return "Sin especialidad";
         }
+        /*
+        protected void ddlEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = grdMedicos.SelectedDataKey.Value.ToString();
+            Response.Redirect("MedicoView.aspx?id=" + id, false);
+        }
+        */
 
     }
 }
