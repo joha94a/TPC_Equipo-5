@@ -67,7 +67,7 @@ namespace App_Gestion_Turnos
         {
             foreach ( GridViewRow row in grdUsuarios.Rows)
             {
-                CheckBox chk = row.Cells[2].Controls[0] as CheckBox;
+                CheckBox chk = row.Cells[3].Controls[0] as CheckBox;
 
                 if (!chk.Checked)
                 {

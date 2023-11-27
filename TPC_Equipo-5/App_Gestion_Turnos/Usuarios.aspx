@@ -33,6 +33,11 @@
             <Columns>
                 <asp:BoundField HeaderText="Nombre Usuario" DataField="Nombre_Usuario" />
                 <asp:BoundField HeaderText="Tipo" DataField="PerfilAcceso.Descripcion" />
+                <asp:TemplateField HeaderText="Medico">
+                    <ItemTemplate>
+                        <%# Eval("Medico") != null ? Eval("Medico.Apellido") + ", " + Eval("Medico.Nombre") : String.Empty %>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
                 <asp:CommandField ShowSelectButton="true" SelectText="Editar" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
             </Columns>
