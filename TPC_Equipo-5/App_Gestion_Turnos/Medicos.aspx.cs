@@ -23,28 +23,22 @@ namespace App_Gestion_Turnos
                 Response.Redirect("Error.aspx", false);
             }
 
-            string filtro = Request.QueryString["filtro"];
-
-            ListaMedicos = negocio.listarMedicos();
-            grdMedicos.DataSource = ListaMedicos;
-            grdMedicos.DataBind();
-
-            if (!IsPostBack && !string.IsNullOrEmpty(filtro))
+            try
             {
-                //ListaMedicos = negocio.listarMedicoFiltrado(filtro);
-                //txtFiltro.Text = filtro;
+                if (!IsPostBack)
+                {
+                    ddlEspecialidad.DataSource = negocioEsp.Get();
+                    ddlEspecialidad.DataBind();
+                    ListaMedicos = negocio.listarMedicos();
+                    grdMedicos.DataSource = ListaMedicos;
+                    grdMedicos.DataBind();
+                    ddlEspecialidad.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+                    ddlEspecialidad.SelectedIndex = 0;
+                }
             }
-            else
+            catch
             {
-                ListaMedicos = negocio.listarMedicos();
-            }
-
-            if (!IsPostBack)
-            {
-                ddlEspecialidad.DataSource = negocioEsp.Get();
-                ddlEspecialidad.DataBind();
-                //repMedicos.DataSource = ListaMedicos;
-                //repMedicos.DataBind();
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -56,30 +50,27 @@ namespace App_Gestion_Turnos
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string nombreApellido = txtNombre.Value;
+            string nombre = txtNombre.Value;
+            string apellido = txtApellido.Value;
             string mail = txtMail.Value;
             string especialidad = ddlEspecialidad.SelectedItem.ToString();
-
-            grdMedicos.DataSource =  negocio.listarMedicoFiltrado(nombreApellido, mail, especialidad);
-            grdMedicos.DataBind();
-           
-            
-            /*
-            if (!string.IsNullOrEmpty(filtro))
+            try
             {
-                Response.Redirect("Medicos.aspx?filtro=" + filtro, false);
+                grdMedicos.DataSource = negocio.listarMedicoFiltrado(nombre, apellido, mail, especialidad);
+                grdMedicos.DataBind();
             }
-            else
+            catch
             {
-                Response.Redirect("Medicos.aspx", false);
-            }*/
+                Response.Redirect("Error.aspx", false);
+            }
+
         }
 
         protected string GetEspecialidadesDescription(object especialidades)
         {
             if (especialidades != null)
             {
-                var especialidadesList = especialidades as List<Especialidad>; 
+                var especialidadesList = especialidades as List<Especialidad>;
 
                 if (especialidadesList != null && especialidadesList.Any())
                 {
@@ -89,13 +80,6 @@ namespace App_Gestion_Turnos
 
             return "Sin especialidad";
         }
-        /*
-        protected void ddlEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var id = grdMedicos.SelectedDataKey.Value.ToString();
-            Response.Redirect("MedicoView.aspx?id=" + id, false);
-        }
-        */
 
     }
 }

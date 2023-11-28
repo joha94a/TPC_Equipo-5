@@ -219,15 +219,28 @@ namespace Negocio
             }
         }
 
-        public List<Medico> listarMedicoFiltrado(string nombreApellido, string mail, string especialidad)
+        public List<Medico> listarMedicoFiltrado(string nombre, string apellido, string mail, string especialidad)
         {
             List<Medico> medicos = new List<Medico>();
             AccesoDatos accesoDatos = new AccesoDatos();
 
             try
             {
-                accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from Medico m WHERE UPPER(m.Nombre) LIKE @filtro OR UPPER(m.Apellido) LIKE @filtro OR UPPER(m.Telefono) LIKE @filtro OR UPPER(m.Mail) LIKE @filtro;");
-                accesoDatos.setearParametro("@filtro", "%" + "" + "%");
+                if (especialidad == "")
+                {
+                    accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail from medico m WHERE UPPER(m.Nombre) LIKE @Nombre AND UPPER(m.Apellido) LIKE @Apellido AND UPPER(m.Mail) LIKE @Mail;");
+                }
+                else
+                {
+                    accesoDatos.setearConsulta("select m.ID, m.Nombre, m.Apellido, m.Telefono, m.Mail, e.Descripcion from medico m left join Medico_Especialidad me on m.id = me.IDMedico left join Especialidad e on me.IDEspecialidad = e.ID WHERE e.Descripcion = @Especialidad;");
+
+                }
+
+                accesoDatos.setearParametro("@Nombre", "%" + nombre.ToUpper() + "%");
+                accesoDatos.setearParametro("@Apellido", "%" + apellido.ToUpper() + "%");
+                accesoDatos.setearParametro("@Mail", "%" + mail.ToUpper() + "%");
+                accesoDatos.setearParametro("@Especialidad", especialidad);
+
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())
@@ -238,6 +251,9 @@ namespace Negocio
                     aux.Apellido = (string)accesoDatos.Lector["Apellido"];
                     aux.Telefono = (string)accesoDatos.Lector["Telefono"];
                     aux.Mail = (string)accesoDatos.Lector["Mail"];
+
+                    EspecialidadNegocio espNegocio = new EspecialidadNegocio();
+                    aux.Especialidades = espNegocio.obtenerEspPorMedico(aux.Id);
 
                     medicos.Add(aux);
                 }

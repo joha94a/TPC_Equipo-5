@@ -32,6 +32,20 @@ namespace App_Gestion_Turnos
                     txtApellido.Value = obj.Apellido;
                     txtTelefono.Value = obj.Telefono;
                     txtMail.Value = obj.Mail;
+
+                    
+                    List<Especialidad> listaEspecialidades = obj.Especialidades;
+                    
+                    for(int i = 0; i < listaEspecialidades.Count; i++)
+                    {
+                        if(i== listaEspecialidades.Count - 1)
+                        {
+                            TBEspecialidades.Text += listaEspecialidades[i].Descripcion;
+                        }
+                        else { TBEspecialidades.Text += listaEspecialidades[i].Descripcion + ", "; }
+                        
+                    }
+                    
                     ListaHorarios = new HorarioNegocio().obtenerHorarioPorMedico(obj.Id);
                     grdHorarios.DataSource = ListaHorarios;
                     grdHorarios.DataBind();

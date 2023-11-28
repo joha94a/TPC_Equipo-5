@@ -30,6 +30,11 @@
                 <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
 
+            <div class="control">
+                <label class="form-label" for="txtTelefono">Especialidades:</label>
+                <asp:TextBox ReadOnly="true" id="TBEspecialidades"  class="form-control" runat="server"></asp:TextBox>
+            </div>
+
         </div>
     </div>
 
@@ -44,6 +49,7 @@
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal" disabled="disabled">Eliminar</button>
         <a class="btn btn-return" href="Medicos.aspx">Volver</a>
         <%} %>
+        <a class="btn btn-return" href="Medicos.aspx">Volver</a>
     </div>
 
     <div class="message_container">

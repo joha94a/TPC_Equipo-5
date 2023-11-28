@@ -14,8 +14,13 @@
     <div class="filter_container">
         <div class="row">
             <div class="control">
-                <label class="form-label" for="txtNombre">Nombre o Apellido</label>
+                <label class="form-label" for="txtNombre">Nombre</label>
                 <input type="text" class="form-control" id="txtNombre" runat="server" style="width: 300px">
+            </div>
+
+            <div class="control">
+                <label class="form-label" for="txtApellido">Apellido</label>
+                <input type="text" class="form-control" id="txtApellido" runat="server" style="width: 300px">
             </div>
 
             <div class="control">
@@ -25,7 +30,7 @@
 
             <div class="control">
                 <label class="form-label" for="ddlEspecialidad">Especialidad</label>
-                    <asp:DropDownList class="form-select" ID="ddlEspecialidad" runat="server" style="width: 300px" AutoPostBack="true"></asp:DropDownList>
+                    <asp:DropDownList class="form-select" ID="ddlEspecialidad" runat="server" style="width: 300px"></asp:DropDownList>
             </div>
 
 
