@@ -88,5 +88,26 @@ namespace App_Gestion_Turnos
             negocio.eliminar(Id);
             Response.Redirect("Medicos.aspx", false);
         }
+
+        protected void btnAgregarHs_Click(object sender, EventArgs e)
+        {
+
+            int IdMedico = Convert.ToInt32(Request.QueryString["id"]);
+           
+
+            Medico obj = new Medico();
+
+            obj.Id = IdMedico;
+            
+            try
+            {
+                Response.Redirect("HorarioView.aspx?idMedico=" + IdMedico, false);
+            }
+            catch 
+            {
+                Response.Redirect("Error.aspx", false);
+            }
+
+        }
     }
 }

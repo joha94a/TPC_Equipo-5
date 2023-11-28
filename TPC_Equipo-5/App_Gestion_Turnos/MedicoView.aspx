@@ -11,6 +11,7 @@
                 <input type="text" class="form-control" id="txtNombre" runat="server" style="width: 300px" onkeyup="validacion(this.id)">
                 <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
+
             <div class="control">
                 <label class="form-label" for="txtApellido">Apellido:</label>
                 <input type="text" class="form-control" id="txtApellido" runat="server" style="width: 300px" onkeyup="validacion(this.id)">
@@ -30,11 +31,15 @@
                 <span class="requerido_texto oculto">Este campo es requerido</span>
             </div>
 
+            <!--Solo se muestra especialidad si el medico ya está cargado-->
+            <%if (Id > 0)
+                { %>
+
             <div class="control">
                 <label class="form-label" for="txtTelefono">Especialidades:</label>
-                <asp:TextBox ReadOnly="true" id="TBEspecialidades"  class="form-control" runat="server"></asp:TextBox>
+                <asp:TextBox ReadOnly="true" ID="TBEspecialidades" class="form-control" runat="server"></asp:TextBox>
             </div>
-
+            <%} %>
         </div>
     </div>
 
@@ -47,29 +52,39 @@
             else
             {%>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal" disabled="disabled">Eliminar</button>
-        <a class="btn btn-return" href="Medicos.aspx">Volver</a>
+
         <%} %>
         <a class="btn btn-return" href="Medicos.aspx">Volver</a>
+        <%if (Id > 0)
+            { %>
+        <asp:Button ID="btnAgregarHorario" CssClass="btn btn-primary" runat="server" Text="Agregar Horario" OnClick="btnAgregarHs_Click" />
+        <%} %>
     </div>
 
     <div class="message_container">
         <span class="requerido_texto" id="spnMensaje" runat="server"></span>
     </div>
 
+    <!--Solo se muestra div de horarios si el id del medico es mayor a 0-->
+    <%if (Id > 0)
+        { %>
+    <div>
+        <div class="message_container">
+            <h4>Horarios</h4>
+        </div>
+        <div class="table_container">
+            <asp:GridView runat="server" ID="grdHorarios" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+                <Columns>
+                    <asp:BoundField HeaderText="Dia" DataField="Dia" />
+                    <asp:BoundField HeaderText="Inicio" DataField="Hora_Inicio" />
+                    <asp:BoundField HeaderText="Fin" DataField="Hora_Fin" />
+                    <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
+                </Columns>
+            </asp:GridView>
+        </div>
+    </div>
+    <%} %>
 
-    <div class="message_container">
-        <h4>Horarios</h4>
-    </div>
-    <div class="table_container">
-        <asp:GridView runat="server" ID="grdHorarios" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
-            <Columns>
-                <asp:BoundField HeaderText="Dia" DataField="Dia" />
-                <asp:BoundField HeaderText="Inicio" DataField="Hora_Inicio" />
-                <asp:BoundField HeaderText="Fin" DataField="Hora_Fin" />
-                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
-            </Columns>
-        </asp:GridView>
-    </div>
 
     <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

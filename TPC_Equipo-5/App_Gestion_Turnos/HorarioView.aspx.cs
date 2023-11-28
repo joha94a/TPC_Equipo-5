@@ -44,6 +44,21 @@ namespace App_Gestion_Turnos
                     }
                 }
             }
+            
+            if (Request.QueryString["idMedico"] != null)
+            {
+                Id = Convert.ToInt32(Request.QueryString["idMedico"]);
+                if (!IsPostBack)
+                {
+                    MedicoNegocio negocio = new MedicoNegocio();
+                    Medico medico = negocio.Get(Id);
+                    if (medico != null)
+                    {
+                        txtMedico.Text = medico.Apellido + ", " + medico.Nombre;
+                        ViewState["IdMedico"] = medico.Id;
+                    }
+                }
+            }
         }
 
         protected void btnMedico_Click(object sender, EventArgs e)
