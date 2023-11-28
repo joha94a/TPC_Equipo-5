@@ -278,6 +278,7 @@ namespace App_Gestion_Turnos
                     lblValidacionNuevaContrasena.InnerText = "";
                     txtRepNuevaContrasena.CssClass = "form-control";
                     lblValidacionRepNuevaContrasena.InnerText = "";
+                    usuario.Contrasena = txtNuevaContrasena.Text;
                 }
 
                 // Perfil de acceso
