@@ -139,6 +139,11 @@
                 <asp:BoundField HeaderText="Día" DataField="Dia"/>
                 <asp:BoundField HeaderText="Desde" DataField="Hora_InicioStr"/>
                 <asp:BoundField HeaderText="Hasta" DataField="Hora_FinStr"/>
+                <asp:TemplateField HeaderText="Medico">
+                    <ItemTemplate>
+                        <%# Eval("Medico.Apellido") + ", " + Eval("Medico.Nombre") %>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
             </Columns>
         </asp:GridView>

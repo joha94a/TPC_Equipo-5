@@ -12,6 +12,7 @@ namespace Dominio
         public Dia Dia { get; set; }
         public TimeSpan Hora_Inicio { get; set; }
         public TimeSpan Hora_Fin { get; set; }
+        public Medico Medico { get; set; }
         public string Hora_InicioStr 
         {
             get

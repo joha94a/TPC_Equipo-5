@@ -13,10 +13,14 @@ namespace Negocio
         {
             List<Horario> horarios = new List<Horario>();
             AccesoDatos accesoDatos = new AccesoDatos();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
-                accesoDatos.setearConsulta(@"SELECT ID, Hora_Inicio, Hora_Fin, Dia FROM Horario");
+                accesoDatos.setearConsulta(@"SELECT H.ID, H.Hora_Inicio, H.Hora_Fin, H.Dia, H.IDMedico
+                                            FROM Horario H 
+                                            INNER JOIN Medico M ON H.IDMedico = M.ID
+                                            ORDER BY M.Apellido, M.Nombre, H.Dia, H.Hora_Inicio, H.Hora_Fin");
 
                 accesoDatos.ejecutarLectura();
 
@@ -27,6 +31,7 @@ namespace Negocio
                     obj.Hora_Inicio = (TimeSpan)accesoDatos.Lector["Hora_Inicio"];
                     obj.Hora_Fin = (TimeSpan)accesoDatos.Lector["Hora_Fin"];
                     obj.Dia = (Dia)accesoDatos.Lector["Dia"];
+                    obj.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["IDMedico"].ToString()));
                     horarios.Add(obj);
                 }
                 return horarios;
@@ -44,10 +49,11 @@ namespace Negocio
         {
             Horario obj = new Horario();
             AccesoDatos accesoDatos = new AccesoDatos();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
-                accesoDatos.setearConsulta(@"SELECT ID, Hora_Inicio, Hora_Fin, Dia FROM Horario WHERE ID = @id");
+                accesoDatos.setearConsulta(@"SELECT ID, Hora_Inicio, Hora_Fin, Dia, IDMedico FROM Horario WHERE ID = @id");
                 accesoDatos.setearParametro("@id", id);
                 accesoDatos.ejecutarLectura();
 
@@ -56,7 +62,8 @@ namespace Negocio
                 obj.Hora_Inicio = (TimeSpan)accesoDatos.Lector["Hora_Inicio"];
                 obj.Hora_Fin = (TimeSpan)accesoDatos.Lector["Hora_Fin"];
                 obj.Dia = (Dia)accesoDatos.Lector["Dia"];
-               
+                obj.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["IDMedico"].ToString()));
+
                 return obj;
             }
             catch (Exception e)
@@ -76,16 +83,17 @@ namespace Negocio
             {
                 if(obj.Id > 0)
                 {
-                    accesoDatos.setearConsulta("UPDATE Horario set Hora_Inicio = @desde, Hora_Fin = @hasta, Dia = @dia WHERE ID = @id");
+                    accesoDatos.setearConsulta("UPDATE Horario set Hora_Inicio = @desde, Hora_Fin = @hasta, Dia = @dia, IDMedico = @idMedico WHERE ID = @id");
                     accesoDatos.setearParametro("@id", obj.Id);
                 }
                 else
                 {
-                    accesoDatos.setearConsulta("INSERT INTO Horario values (@desde, @hasta, @dia);");
+                    accesoDatos.setearConsulta("INSERT INTO Horario values (@dia, @desde, @hasta, @idMedico);");
                 }
                 accesoDatos.setearParametro("@desde", obj.Hora_Inicio);
                 accesoDatos.setearParametro("@hasta", obj.Hora_Fin);
                 accesoDatos.setearParametro("@dia", obj.Dia);
+                accesoDatos.setearParametro("@idMedico", obj.Medico.Id);
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception e)
@@ -121,6 +129,7 @@ namespace Negocio
         {
             List<Horario> horarios = new List<Horario>();
             AccesoDatos accesoDatos = new AccesoDatos();
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
 
             try
             {
@@ -137,6 +146,7 @@ namespace Negocio
                     obj.Hora_Inicio = (TimeSpan)accesoDatos.Lector["Hora_Inicio"];
                     obj.Hora_Fin = (TimeSpan)accesoDatos.Lector["Hora_Fin"];
                     obj.Dia = (Dia)accesoDatos.Lector["Dia"];
+                    obj.Medico = medicoNegocio.Get(int.Parse(accesoDatos.Lector["IDMedico"].ToString()));
                     horarios.Add(obj);
                 }
                 return horarios;
@@ -158,7 +168,7 @@ namespace Negocio
             List<Horario> horarios = new List<Horario>();
             try
             {
-                accesoDatos.setearConsulta("select h.ID, h.Dia, h.Hora_Inicio, h.Hora_Fin from Medico_Horario mh inner join Horario h on mh.IDHorario = h.ID where mh.IDMedico = @Id");
+                accesoDatos.setearConsulta("select ID, Dia, Hora_Inicio, Hora_Fin from Horario where IDMedico = @Id");
                 accesoDatos.setearParametro("@id", idMedico);
                 accesoDatos.ejecutarLectura();
 

@@ -114,6 +114,39 @@
                 </div>
             </div>
         </div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div class="m-2 mb-3">
+                    <asp:Label ID="lblMedico" CssClass="form-label" runat="server" Text="Médico:" for="txtMedico"></asp:Label>
+                    <asp:TextBox ID="txtMedico" runat="server" CssClass="form-control" Width="300px" Enabled="false" />
+                    <div id="lblValidacionMedico" runat="server" class="invalid-feedback"></div>
+                </div>
+                <div class="m-2 mb-3">
+                    <asp:Button ID="btnMedico" runat="server" Text="Cambiar Médico" OnClick="btnMedico_Click" CssClass="btn btn-primary" />
+                </div>
+                <%      
+                if (SeccionMedicoVisible)
+                {
+                %>
+                    <div class="p-3 border border-primary rounded">
+                            <div class="mb-3">
+                                <asp:Label ID="lblFiltroMedico" CssClass="form-label mb-3" runat="server" Text="Filtro:" for="txtFiltroMedico"></asp:Label>
+                                <asp:TextBox ID="txtFiltroMedico" runat="server" CssClass="form-control w-50 d-inline-block m-3" AutoCompleteType="Disabled"/>
+                                <asp:Button ID="btnBuscarMedico" runat="server" Text="Buscar" CssClass="btn btn-secondary btn-sm m-3" OnClick="btnBuscarMedico_Click" AutoPostBack="false" />
+                                <asp:DropDownList CssClass="form-select w-75" ID="cmbMedico" runat="server" AutoPostBack="false"></asp:DropDownList>
+                                <div id="lblValidacionElegirMedico" runat="server" class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <asp:Button ID="btnElegirMedico" runat="server" Text="Elegir" CssClass="btn btn-primary btn-sm" OnClick="btnElegirMedico_Click" />
+                            </div>
+                    </div>
+                <%
+                }
+                %>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </div>
 
     

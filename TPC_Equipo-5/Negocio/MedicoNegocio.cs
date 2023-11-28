@@ -288,6 +288,10 @@ namespace Negocio
 
         public int RelacionesDeHorarios(int horarioId)
         {
+
+            // ToDo: REVISAR
+            // Ya no es válido con los cambios en BD.
+
             int medicos = 0;
 
             AccesoDatos accesoDatos = new AccesoDatos();
