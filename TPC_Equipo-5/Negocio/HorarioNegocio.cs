@@ -88,7 +88,7 @@ namespace Negocio
                 }
                 else
                 {
-                    accesoDatos.setearConsulta("INSERT INTO Horario values (@desde, @hasta, @dia, @idMedico);");
+                    accesoDatos.setearConsulta("INSERT INTO Horario (Hora_Inicio, Hora_Fin, Dia, IDMedico) values (@desde, @hasta, @dia, @idMedico)");
                 }
                 accesoDatos.setearParametro("@desde", obj.Hora_Inicio);
                 accesoDatos.setearParametro("@hasta", obj.Hora_Fin);
