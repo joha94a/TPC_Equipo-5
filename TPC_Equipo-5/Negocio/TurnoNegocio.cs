@@ -145,7 +145,7 @@ namespace Negocio
             }
         }
 
-        public List<Turno> ListarBuscador(DateTime? fechaDesde, DateTime? fechaHasta, int estado)
+        public List<Turno> ListarBuscador(DateTime? fechaDesde, DateTime? fechaHasta, int estado, Medico medico = null)
         {
             List<Turno> objs = new List<Turno>();
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -156,6 +156,8 @@ namespace Negocio
                 accesoDatos.setearParametro("@fechaDesde", fechaDesde);
                 accesoDatos.setearParametro("@fechaHasta", fechaHasta);
                 accesoDatos.setearParametro("@estado", estado);
+                if (medico != null)
+                    accesoDatos.setearParametro("@idMedico", medico.Id);
                 accesoDatos.ejecutarLectura();
 
                 while (accesoDatos.Lector.Read())

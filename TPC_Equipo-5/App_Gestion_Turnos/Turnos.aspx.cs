@@ -14,11 +14,16 @@ namespace App_Gestion_Turnos
     public partial class Turnos : System.Web.UI.Page
     {
         public List<Turno> ListaTurnos { get; set; }
+        public Medico Medico { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] != null && ((Usuario)Session["usuario"]).Medico != null)
+            {
+                Medico = ((Usuario)Session["usuario"]).Medico;
+            }
             TurnoNegocio negocio = new TurnoNegocio();
 
-            ListaTurnos = negocio.ListarBuscador(null,null,0);
+            ListaTurnos = negocio.ListarBuscador(null,null,0,Medico);
             grdTurnos.DataSource = ListaTurnos;
             grdTurnos.DataBind();
         }
@@ -40,7 +45,7 @@ namespace App_Gestion_Turnos
             if (txtFechaDesde.Value.Length > 0) fechaDesde = Convert.ToDateTime(txtFechaDesde.Value);
             if (txtFechaHasta.Value.Length > 0) fechaHasta = Convert.ToDateTime(txtFechaHasta.Value);
 
-            grdTurnos.DataSource = negocio.ListarBuscador(fechaDesde, fechaHasta, estado);
+            grdTurnos.DataSource = negocio.ListarBuscador(fechaDesde, fechaHasta, estado, Medico);
             grdTurnos.DataBind();
         }
     }

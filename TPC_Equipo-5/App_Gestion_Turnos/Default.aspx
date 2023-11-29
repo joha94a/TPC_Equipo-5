@@ -31,7 +31,7 @@
                                             <div ID="lblValidacionPassword" runat="server" class="invalid-feedback" style="display:block"></div>
                                         </div>
 
-                                        <p class="small mb-3 pb-lg-1"><a class="text-white-50" href="#!">Olvidó su contraseña?</a></p>
+                                        <%--<p class="small mb-3 pb-lg-1"><a class="text-white-50" href="#!">Olvidó su contraseña?</a></p>--%>
                                         <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn btn-outline-light btn-lg px-5" OnClick="btnLogin_Click" />
                                     </div>
                                 </div>
