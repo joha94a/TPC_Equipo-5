@@ -13,14 +13,15 @@ namespace App_Gestion_Turnos
     {
         public List<TurnoDisponibleCalendario> ListaTurnos { get; set; }
         public int PacienteId { get; set; }
+        public int EspecialidadId { get; set; }
         TurnoNegocio negocio = new TurnoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             PacienteId = Convert.ToInt32(Request.QueryString["pId"]);
-            int especialidadId = Convert.ToInt32(Request.QueryString["eId"]);
+            EspecialidadId = Convert.ToInt32(Request.QueryString["eId"]);
 
 
-            ListaTurnos = negocio.TurnoDisponibleCalendarioGet(especialidadId);
+            ListaTurnos = negocio.TurnoDisponibleCalendarioGet(EspecialidadId);
             grdTurnos.DataSource = ListaTurnos;
             grdTurnos.DataBind();
         }
@@ -34,6 +35,7 @@ namespace App_Gestion_Turnos
             obj.Estado = TurnoEstado.Activo;
             obj.Medico = new Medico() { Id = disponible.MedicoId };
             obj.Paciente = new Paciente() { Id = PacienteId };
+            obj.Especialidad = new Especialidad() { Id = EspecialidadId };
             new TurnoNegocio().Guardar(obj);
             Response.Redirect("Turnos.aspx", false);
         }

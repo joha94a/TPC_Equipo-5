@@ -4,28 +4,63 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <%if(ListaTurnos.Count > 0) { %>
-        
-        
+    <%if (ListaTurnos.Count > 0)
+        { %>
+
+
     <div>
         <h3 class="tituloPagina">Turnos urgentes</h3>
     </div>
     <div class="table_container">
         <asp:GridView runat="server" ID="grdTurnos" CssClass="table" AutoGenerateColumns="false" OnSelectedIndexChanged="grdTurnos_SelectedIndexChanged" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
-                <asp:BoundField HeaderText="Fecha" DataField="FechaStr"/>
-                <asp:BoundField HeaderText="Médico" DataField="MedicoStr"/>
-                <asp:BoundField HeaderText="Paciente" DataField="PacienteStr"/>
-                <asp:BoundField HeaderText="Estado" DataField="EstadoStr"/>
+                <asp:BoundField HeaderText="Fecha" DataField="FechaStr" />
+                <asp:BoundField HeaderText="Médico" DataField="MedicoStr" />
+                <asp:BoundField HeaderText="Paciente" DataField="PacienteStr" />
+                <asp:BoundField HeaderText="Estado" DataField="EstadoStr" />
                 <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor" HeaderStyle-CssClass="oculto">
                     <ItemStyle CssClass="oculto"></ItemStyle>
                 </asp:BoundField>
-                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton"/>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
             </Columns>
         </asp:GridView>
     </div>
-    
-      <%} %>
+
+    <%} %>
+
+
+    <%if (NivelAcceso == 1)
+        { %>
+
+    <div>
+        <h3 class="tituloPagina">Próximos turnos</h3>
+    </div>
+    <div class="table_container">
+        <asp:GridView runat="server" ID="GridProxTurnos" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+            <Columns>
+                <asp:BoundField HeaderText="Fecha" DataField="FechaStr" />
+                <asp:BoundField HeaderText="Paciente" DataField="PacienteStr" />
+                <asp:BoundField HeaderText="Especialidad" DataField="EspecialidadStr" />
+                <asp:BoundField HeaderText="Estado" DataField="EstadoStr" />
+                <asp:BoundField HeaderText="EstadoValor" DataField="EstadoValor" HeaderStyle-CssClass="oculto">
+                    <ItemStyle CssClass="oculto"></ItemStyle>
+                </asp:BoundField>
+                <asp:CommandField ShowSelectButton="true" SelectText="VER" HeaderText="" ControlStyle-CssClass="btn btn-primary gridButton" />
+            </Columns>
+        </asp:GridView>
+    </div>
+    <%} %>
+
+    <%if (NivelAcceso == 3)
+        { %>
+
+    <div>
+        <h3 class="tituloPagina">Bienvenido admin</h3>
+    </div>
+
+    <%} %>
+
+
     <script type="text/javascript">
 
         $(document).ready(function () {

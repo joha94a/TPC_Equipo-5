@@ -16,6 +16,7 @@ namespace Dominio
         public DateTime Fecha { get; set; }
         public Medico Medico { get; set; }
         public Paciente Paciente { get; set; }
+        public Especialidad Especialidad { get; set; }
         public string Observaciones { get; set; }
         public TurnoEstado Estado { get; set; }
         public string MedicoStr { get; set; }
@@ -27,6 +28,7 @@ namespace Dominio
                 return Fecha != null ? Fecha.ToString("dd/MM/yyy") : "";
             }
         }
+        public string EspecialidadStr { get; set; }
     }
 
     public enum TurnoEstado

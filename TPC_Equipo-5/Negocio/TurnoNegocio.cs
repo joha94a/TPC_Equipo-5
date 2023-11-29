@@ -191,18 +191,20 @@ namespace Negocio
             {
                 if (obj.Id > 0)
                 {
-                    accesoDatos.setearConsulta(@"UPDATE Turno SET Fecha = @fecha, MedicoID = @medicoId, PacienteID = @pacienteId, Observaciones = @observaciones, Estado = @estado WHERE ID = @id");
+                    accesoDatos.setearConsulta(@"UPDATE Turno SET Fecha = @fecha, MedicoID = @medicoId, PacienteID = @pacienteId, Observaciones = @observaciones, Estado = @estado, EspecialidadID = @especialidadId WHERE ID = @id");
                     accesoDatos.setearParametro("@id", obj.Id);
                 }
                 else
                 {
-                    accesoDatos.setearConsulta("INSERT INTO Turno VALUES (@fecha, @medicoId, @pacienteId, @observaciones, @estado)");
+                    accesoDatos.setearConsulta("INSERT INTO Turno VALUES (@fecha, @medicoId, @pacienteId, @observaciones, @estado, @especialidadId)");
                 }
                 accesoDatos.setearParametro("@fecha", obj.Fecha);
                 accesoDatos.setearParametro("@medicoId", obj.Medico.Id);
                 accesoDatos.setearParametro("@pacienteId", obj.Paciente.Id);
                 accesoDatos.setearParametro("@observaciones", obj.Observaciones);
                 accesoDatos.setearParametro("@estado", obj.Estado);
+                accesoDatos.setearParametro("@especialidadId", obj.Especialidad.Id);
+
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -235,6 +237,52 @@ namespace Negocio
                     obj.Estado = (TurnoEstado)accesoDatos.Lector["Estado"];
                 }
                 return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
+
+        public List<Turno> TurnosPorMedico(int id)
+        {
+            List<Turno> turnosLista = new List<Turno>();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            try
+            {
+                accesoDatos.setearConsulta("SELECT t.ID, t.Fecha, p.Apellido + ', ' + p.Nombre as Paciente, e.Descripcion as Especialidad," +
+                    " CASE WHEN t.Estado = 1 THEN 'Activo' " +
+                    "WHEN t.Estado = 2 THEN 'Cancelado' " +
+                    "WHEN t.Estado = 3 THEN 'Completado' " +
+                    "WHEN t.Estado = 4 THEN 'Ausente' " +
+                    "ELSE '' " +
+                    "END " +
+                    "EstadoStr, t.Estado FROM Turno t " +
+                    "INNER JOIN Medico m ON m.Id = t.MedicoID " +
+                    "INNER JOIN Paciente p ON p.ID = t.PacienteID " +
+                    "INNER JOIN Especialidad e on t.EspecialidadID = e.ID " +
+                    "WHERE t.MedicoID = @idMedico ORDER BY t.Fecha DESC");
+                accesoDatos.setearParametro("@idMedico", id);
+                accesoDatos.ejecutarLectura();
+
+                while (accesoDatos.Lector.Read())
+                {
+                    Turno obj = new Turno();
+                    obj.Id = (int)accesoDatos.Lector["Id"];
+                    obj.Fecha = (DateTime)accesoDatos.Lector["Fecha"];
+                    obj.PacienteStr = accesoDatos.Lector["Paciente"].ToString();
+                    obj.Estado = (TurnoEstado)accesoDatos.Lector["Estado"];
+                    obj.EstadoStr = accesoDatos.Lector["EstadoStr"].ToString();
+                    obj.EstadoValor = Convert.ToInt32(accesoDatos.Lector["Estado"].ToString());
+                    obj.EspecialidadStr = accesoDatos.Lector["Especialidad"].ToString();
+                    turnosLista.Add(obj);
+                }
+                return turnosLista;
             }
             catch (Exception e)
             {
