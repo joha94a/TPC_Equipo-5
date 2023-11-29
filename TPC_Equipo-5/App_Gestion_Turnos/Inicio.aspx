@@ -51,16 +51,27 @@
     </div>
     <%} %>
 
+    <%if (NivelAcceso == 2)
+        { %>
+
+    <div>
+        <h3 class="tituloPagina">PARA COMPLETAR - ACA VAN BOTONES CON LAS FUNCIONES MAS USADAS DE UN RECEP</h3>
+    </div>
+
+    <%} %>
+
     <%if (NivelAcceso == 3)
         { %>
 
     <div>
-        <h3 class="tituloPagina" style="text-align:center">Bienvenido admin</h3>
+        <h3 class="tituloPagina" style="text-align: center">Bienvenido admin</h3>
     </div>
 
 
 
     <%} %>
+
+
 
 
     <script type="text/javascript">

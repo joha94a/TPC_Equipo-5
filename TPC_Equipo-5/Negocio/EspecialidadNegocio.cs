@@ -203,5 +203,35 @@ namespace Negocio
             }
 
         }
+
+        public void modificarRelacionMedEsp(int idMedico, int idEsp,bool alta)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                if(alta)
+                {
+                    accesoDatos.setearConsulta("INSERT INTO Medico_Especialidad values (@idEspecialidad,@idMedico)");
+
+                }
+                else
+                {
+                    accesoDatos.setearConsulta("DELETE FROM Medico_Especialidad where IDEspecialidad = @idEspecialidad and IDMedico = @idMedico;");
+
+                }
+
+                accesoDatos.setearParametro("@idMedico", idMedico);
+                accesoDatos.setearParametro("@idEspecialidad", idEsp);
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoDatos.cerrarConexion();
+            }
+        }
     }
 }

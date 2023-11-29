@@ -34,10 +34,15 @@
             <!--Solo se muestra especialidad si el medico ya está cargado-->
             <%if (Id > 0)
                 { %>
+            <div class="row column2">
+                <div class="control">
+                    <label class="form-label" for="txtTelefono">Especialidades:</label>
+                    <asp:TextBox ReadOnly="true" ID="TBEspecialidades" class="form-control" runat="server"></asp:TextBox>
+                </div>
 
-            <div class="control">
-                <label class="form-label" for="txtTelefono">Especialidades:</label>
-                <asp:TextBox ReadOnly="true" ID="TBEspecialidades" class="form-control" runat="server"></asp:TextBox>
+                <div class="control" style="display: flex; align-content:center">
+                    <asp:Button ID="btnAgregarEsp" runat="server" OnClick="btnAgregarEspecialidad_Click" Text="Agregar especialidad" class="btn btn-primary" />
+                </div>
             </div>
             <%} %>
         </div>

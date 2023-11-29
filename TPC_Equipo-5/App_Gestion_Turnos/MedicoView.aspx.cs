@@ -45,6 +45,11 @@ namespace App_Gestion_Turnos
                         else { TBEspecialidades.Text += listaEspecialidades[i].Descripcion + ", "; }
                         
                     }
+
+                    if(listaEspecialidades == null || listaEspecialidades.Count == 0)
+                    {
+                        TBEspecialidades.Text = "Sin especialidad asignada";
+                    }
                     
                     ListaHorarios = new HorarioNegocio().obtenerHorarioPorMedico(obj.Id);
                     grdHorarios.DataSource = ListaHorarios;
@@ -73,12 +78,14 @@ namespace App_Gestion_Turnos
             negocio.agregar(obj);
             
 
-            if (Request.QueryString["doc"] != null)
+            if (Request.QueryString["id"] != null)
             {
-                // Response.Redirect("TurnoCrear.aspx?doc=" + obj.DNI, false);
+                Response.Redirect("Medicos.aspx", false);
             }
             else
             {
+                //tiene que ir cargar esp con id dle medico nuevo
+                //Response.Redirect("AsignacionEspecialidad.aspx?idMedico=" + IdMedico, false);
                 Response.Redirect("Medicos.aspx", false);
             }
         }
@@ -108,6 +115,12 @@ namespace App_Gestion_Turnos
                 Response.Redirect("Error.aspx", false);
             }
 
+        }
+
+        protected void btnAgregarEspecialidad_Click(object sender, EventArgs e)
+        {
+            int IdMedico = Convert.ToInt32(Request.QueryString["id"]);
+            Response.Redirect("AsignacionEspecialidad.aspx?idMedico=" + IdMedico, false);
         }
     }
 }
