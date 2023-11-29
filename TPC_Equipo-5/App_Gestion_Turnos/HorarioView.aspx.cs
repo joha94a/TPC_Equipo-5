@@ -12,6 +12,8 @@ namespace App_Gestion_Turnos
     public partial class HorarioView : System.Web.UI.Page
     {
         public int Id { get; set; }
+
+        public int IdMedico { get; set; }
         public bool SeccionMedicoVisible { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,11 +49,11 @@ namespace App_Gestion_Turnos
             
             if (Request.QueryString["idMedico"] != null)
             {
-                Id = Convert.ToInt32(Request.QueryString["idMedico"]);
+                IdMedico = Convert.ToInt32(Request.QueryString["idMedico"]);
                 if (!IsPostBack)
                 {
                     MedicoNegocio negocio = new MedicoNegocio();
-                    Medico medico = negocio.Get(Id);
+                    Medico medico = negocio.Get(IdMedico);
                     if (medico != null)
                     {
                         txtMedico.Text = medico.Apellido + ", " + medico.Nombre;
