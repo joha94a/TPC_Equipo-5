@@ -8,7 +8,7 @@
             {%>
             <button type="button" class="btn btn-ausente" data-bs-toggle="modal" data-bs-target="#AusenteModal">Ausente</button>
           <%}
-        if (Turno.Estado != Dominio.TurnoEstado.Cancelado)
+        if (Turno.Estado != Dominio.TurnoEstado.Cancelado && NivelAcceso != 1)
         {%>
             <button type="button" class="btn btn-cancelar" data-bs-toggle="modal" data-bs-target="#CancelarModal">Cancelar</button>
         <%} 
@@ -69,8 +69,12 @@
             {%>
             <a class="btn btn-return" href="PacienteView.aspx?id=<%:PacienteId%>">Volver</a>
             <%}
-        else
-        {%>
+                else if (NivelAcceso == 1)
+                {%>
+        <a class="btn btn-return" href="Inicio.aspx">Volver</a>
+        <% }
+            else
+            {%>
             <a class="btn btn-return" href="Turnos.aspx">Volver</a>
         <%}%>
     </div>

@@ -15,8 +15,14 @@ namespace App_Gestion_Turnos
         TurnoNegocio negocio = new TurnoNegocio();
         public bool VieneDePaciente { get; set; }
         public int PacienteId { get; set; }
+        public int NivelAcceso { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Seguridad.sesionActiva(Session["usuario"]))
+            {
+                NivelAcceso = ((Usuario)Session["usuario"]).PerfilAcceso.Nivel_Acceso;
+            }
+
             if (Request.QueryString["id"] != null)
             {
                 int id = Convert.ToInt32(Request.QueryString["id"]);

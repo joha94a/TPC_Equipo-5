@@ -235,6 +235,7 @@ namespace Negocio
                     obj.Paciente = new PacienteNegocio().Get(Convert.ToInt32(accesoDatos.Lector["PacienteID"]));
                     obj.Observaciones = accesoDatos.Lector["Observaciones"].ToString();
                     obj.Estado = (TurnoEstado)accesoDatos.Lector["Estado"];
+                    obj.Especialidad = new EspecialidadNegocio().Get(Convert.ToInt32(accesoDatos.Lector["EspecialidadID"]));
                 }
                 return obj;
             }
@@ -266,7 +267,7 @@ namespace Negocio
                     "INNER JOIN Medico m ON m.Id = t.MedicoID " +
                     "INNER JOIN Paciente p ON p.ID = t.PacienteID " +
                     "INNER JOIN Especialidad e on t.EspecialidadID = e.ID " +
-                    "WHERE t.MedicoID = @idMedico ORDER BY t.Fecha DESC");
+                    "WHERE t.MedicoID = @idMedico AND t.Estado = 1 ORDER BY t.Fecha ASC");
                 accesoDatos.setearParametro("@idMedico", id);
                 accesoDatos.ejecutarLectura();
 

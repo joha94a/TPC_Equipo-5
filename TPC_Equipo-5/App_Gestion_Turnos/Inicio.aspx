@@ -36,7 +36,7 @@
         <h3 class="tituloPagina">Próximos turnos</h3>
     </div>
     <div class="table_container">
-        <asp:GridView runat="server" ID="GridProxTurnos" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
+        <asp:GridView runat="server" ID="GridProxTurnos" CssClass="table" OnSelectedIndexChanged="GridProxTurnos_SelectedIndexChanged" AutoGenerateColumns="false" DataKeyNames="Id" ShowHeaderWhenEmpty="True" EmptyDataText="No se encontraron registros">
             <Columns>
                 <asp:BoundField HeaderText="Fecha" DataField="FechaStr" />
                 <asp:BoundField HeaderText="Paciente" DataField="PacienteStr" />
@@ -55,8 +55,10 @@
         { %>
 
     <div>
-        <h3 class="tituloPagina">Bienvenido admin</h3>
+        <h3 class="tituloPagina" style="text-align:center">Bienvenido admin</h3>
     </div>
+
+
 
     <%} %>
 
